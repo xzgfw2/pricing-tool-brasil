@@ -1,0 +1,650 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GM Pricing Tool\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: es\n"
+
+msgid "CPC1_3_6"
+msgstr "CPC1_3_6"
+
+msgid "Manual"
+msgstr "Manual"
+
+msgid "UUID Alteração"
+msgstr "UUID de Cambio"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Aprovar"
+msgstr "Aprobar"
+
+msgid "Enviar para aprovação"
+msgstr "Enviar para aprobación"
+
+msgid "aprovado"
+msgstr "aprobado"
+
+msgid "recusado"
+msgstr "rechazado"
+
+msgid "Erro: Não há dados para aprovar/recusar"
+msgstr "Error: No hay datos para aprobar/rechazar"
+
+msgid "Status alterado para"
+msgstr "Estado cambiado a"
+
+msgid "Erro"
+msgstr "Error"
+
+msgid "Erro ao processar aprovação:"
+msgstr "Error al procesar la aprobación:"
+
+msgid "Peça"
+msgstr "Pieza"
+
+msgid "Marca"
+msgstr "Marca"
+
+msgid "Tipo"
+msgstr "Tipo"
+
+msgid "Descrição"
+msgstr "Descripción"
+
+msgid "Preço Tabela"
+msgstr "Precio de Lista"
+
+msgid "Estimado"
+msgstr "Estimado"
+
+msgid "Preço Venda"
+msgstr "Precio de Venta"
+
+msgid "Volume"
+msgstr "Volumen"
+
+msgid "Fat Bruto"
+msgstr "Facturación Bruta"
+
+msgid "Fat Liq"
+msgstr "Facturación Neta"
+
+msgid "Margem ABS"
+msgstr "Margen ABS"
+
+msgid "← Voltar"
+msgstr "← Volver"
+
+msgid "Copiar"
+msgstr "Copiar"
+
+msgid "Simulação"
+msgstr "Simulación"
+
+msgid "Baixar Excel"
+msgstr "Descargar Excel"
+
+msgid "Baixar arquivo em Excel"
+msgstr "Descargar archivo en Excel"
+
+msgid "Detalhes"
+msgstr "Detalles"
+
+msgid "Ver detalhes no Power BI"
+msgstr "Ver detalles en Power BI"
+
+msgid "Expandir Todos"
+msgstr "Expandir Todos"
+
+msgid "Colapsar Todos"
+msgstr "Colapsar Todos"
+
+msgid "Ano Frota"
+msgstr "Año de Flota"
+
+msgid "Aplicações"
+msgstr "Aplicaciones"
+
+msgid "Elasticidade"
+msgstr "Elasticidad"
+
+msgid "Estoque"
+msgstr "Inventario"
+
+msgid "Frota"
+msgstr "Flota"
+
+msgid "Preço"
+msgstr "Precio"
+
+msgid "Grupo"
+msgstr "Grupo"
+
+msgid "%"
+msgstr "%"
+
+msgid "Regra"
+msgstr "Regla"
+
+msgid "Produtos"
+msgstr "Productos"
+
+msgid "Margem %"
+msgstr "Margen %"
+
+msgid "Efetuar simulação ?"
+msgstr "¿Realizar simulación?"
+
+msgid "A simulação pode levar vários minutos para ser efetuada"
+msgstr "La simulación puede tardar varios minutos en completarse"
+
+msgid "Sim"
+msgstr "Sí"
+
+msgid "Não"
+msgstr "No"
+
+msgid "Faturamento Bruto"
+msgstr "Facturación Bruta"
+
+msgid "Faturamento Líquido"
+msgstr "Facturación Neta"
+
+msgid "Margem"
+msgstr "Margen"
+
+msgid "Volume dos últimos 12 meses com preços e custos vigentes"
+msgstr "Volumen de los últimos 12 meses con precios y costos vigentes"
+
+msgid "Atualizar"
+msgstr "Actualizar"
+
+msgid "Otimização de Preços"
+msgstr "Optimización de Precios"
+
+msgid "Estratégia"
+msgstr "Estrategia"
+
+msgid "Qtd de aplicações"
+msgstr "Cantidad de aplicaciones"
+
+msgid "Frota disponível"
+msgstr "Flota disponible"
+
+msgid "Estoque GM"
+msgstr "Inventario GM"
+
+msgid "Ano frota"
+msgstr "Año de flota"
+
+msgid "Custo medio"
+msgstr "Costo medio"
+
+msgid "Preço SAP atual"
+msgstr "Precio SAP actual"
+
+msgid "Preço SAP novo"
+msgstr "Precio SAP nuevo"
+
+msgid "Data Alterações"
+msgstr "Fechas de Cambio"
+
+msgid "Data Alteração"
+msgstr "Fecha de Cambio"
+
+msgid "Command Center"
+msgstr "Centro de Comando"
+
+msgid "Arquitetura de Preço"
+msgstr "Arquitectura de Precio"
+
+msgid "Simulação do Resultado"
+msgstr "Simulación del Resultado"
+
+msgid "CatLote"
+msgstr "CatLote"
+
+msgid "Sem Promoção"
+msgstr "Sin Promoción"
+
+msgid "Com Promoção"
+msgstr "Con Promoción"
+
+msgid "Soma atual: "
+msgstr "Suma actual: "
+
+msgid "Faltam"
+msgstr "Faltan"
+
+msgid "Excedem"
+msgstr "Exceden"
+
+msgid "para atingir 100%"
+msgstr "para alcanzar el 100%"
+
+msgid "Valores corretos! Soma = 100%"
+msgstr "¡Valores correctos! Suma = 100%"
+
+msgid "Erro ao preencher datas automaticamente: "
+msgstr "Error al completar las fechas automáticamente: "
+
+msgid "Simular impactos"
+msgstr "Simular impactos"
+
+msgid "Erro ao validar os valores"
+msgstr "Error al validar los valores"
+
+msgid "CatLote Desconto"
+msgstr "Descuento CatLote"
+
+msgid "Simulação - CatLote"
+msgstr "Simulación - CatLote"
+
+msgid "Aprovações"
+msgstr "Aprobaciones"
+
+msgid "Capitão"
+msgstr "Capitán"
+
+msgid "Simulação do Capitão"
+msgstr "Simulación del Capitán"
+
+msgid "Atenção! Só pode haver um capitão por CPC 1_3_6"
+msgstr "¡Atención! Solo puede haber un capitán por CPC 1_3_6"
+
+msgid "Acessórios"
+msgstr "Accesorios"
+
+msgid "Repres. Faturamento"
+msgstr "Representación de Facturación"
+
+msgid "Repres. Volume"
+msgstr "Representación de Volumen"
+
+msgid "Repres. Penetração"
+msgstr "Representación de Penetración"
+
+msgid "Situação atual dos capitão"
+msgstr "Situación actual del capitán"
+
+msgid "Critério"
+msgstr "Criterio"
+
+msgid "Rank"
+msgstr "Ranking"
+
+msgid "Data Inclusão"
+msgstr "Fecha de Inclusión"
+
+msgid "Penetração"
+msgstr "Penetración"
+
+msgid "Capitão (atual)"
+msgstr "Capitán (actual)"
+
+msgid "Capitão (sistema)"
+msgstr "Capitán (sistema)"
+
+msgid "Aprovar Mudança ?"
+msgstr "¿Aprobar Cambio?"
+
+msgid "Capitão (novo)"
+msgstr "Capitán (nuevo)"
+
+msgid "Manual / Sistema"
+msgstr "Manual / Sistema"
+
+msgid "Estratégia Comercial"
+msgstr "Estrategia Comercial"
+
+msgid "Posicionamento de Mercado"
+msgstr "Posicionamiento de Mercado"
+
+msgid "Preço Concorrente Distribuidor"
+msgstr "Precio Competidor (Distribuidor)"
+
+msgid "Preço Dealer GM"
+msgstr "Precio Dealer GM"
+
+msgid "Price Index Distribuidor (AS IS)"
+msgstr "Índice de Precios Distribuidor (AS IS)"
+
+msgid "Meta Competitividade (TO BE)"
+msgstr "Meta de Competitividad (TO BE)"
+
+msgid "Ativo"
+msgstr "Activo"
+
+msgid "Margem do Capitão"
+msgstr "Margen del Capitán"
+
+msgid "Delta Preço"
+msgstr "Delta Precio"
+
+msgid "Mercado"
+msgstr "Mercado"
+
+msgid "Build Up"
+msgstr "Build Up"
+
+msgid "Configurações"
+msgstr "Configuraciones"
+
+msgid "404: Not found"
+msgstr "404: No encontrado"
+
+msgid "Fatores"
+msgstr "Factores"
+
+msgid "Base Price"
+msgstr "Precio Base"
+
+msgid "Custo Médio"
+msgstr "Costo Promedio"
+
+msgid "Simular Capitão"
+msgstr "Simular Capitán"
+
+msgid "Delta Preço Min."
+msgstr "Delta Precio Mín."
+
+msgid "Delta Preço Max."
+msgstr "Delta Precio Máx."
+
+msgid "Informações sobre a página"
+msgstr "Información sobre la página"
+
+msgid "Fechar"
+msgstr "Cerrar"
+
+msgid "Ajuda - Aprovações"
+msgstr "Ayuda - Aprobaciones"
+
+msgid "Workflow de aprovações"
+msgstr "Flujo de trabajo de aprobaciones"
+
+msgid "Clique na aba para visualizar os registros pendentes de aprovação."
+msgstr "Haga clic en la pestaña para ver los registros pendientes de aprobación."
+
+msgid "Clique nos botões para aceitar ou recusar a aprovação."
+msgstr "Haga clic en los botones para aceptar o rechazar la aprobación."
+
+msgid "Ajuda - Buildup"
+msgstr "Ayuda - Buildup"
+
+msgid "Permite visualizar e editar os fatores de buildup"
+msgstr "Permite visualizar y editar los factores de buildup"
+
+msgid "Permite calcular o buildup por base price e custo médio."
+msgstr "Permite calcular el buildup por precio base y costo promedio."
+
+msgid "Permite enviar as alterações realizadas para a aprovação do gestor."
+msgstr "Permite enviar los cambios realizados para la aprobación del gerente."
+
+msgid "Ajuda - Capitão"
+msgstr "Ayuda - Capitán"
+
+msgid "Permite visualizar e editar as variáveis de parametrização do capitão."
+msgstr "Permite visualizar y editar las variables de parametrización del capitán."
+
+msgid "Permite visualizar a lista de produtos com os respectivos capitães atuais."
+msgstr "Permite visualizar la lista de productos con sus respectivos capitanes actuales."
+
+msgid "Use o botão de simulação para gerar uma lista com os capitães sugeridos pelo sistema, de acordo com as variáveis de parametrização."
+msgstr "Utilice el botón de simulación para generar una lista con los capitanes sugeridos por el sistema, de acuerdo con las variables de parametrización."
+
+msgid "Ajuda - Simulação do Capitão"
+msgstr "Ayuda - Simulación del Capitán"
+
+msgid "Permite visualizar e editar o capitão sugerido pelo algoritmo de simulação."
+msgstr "Permite visualizar y editar el capitán sugerido por el algoritmo de simulación."
+
+msgid "A lista apresentada permite visualizar o capitão atual, o capitão sugerido pelo algoritmo e realizar ações como aprovar, recusar ou manter o capitão atual."
+msgstr "La lista presentada permite visualizar el capitán actual, el capitán sugerido por el algoritmo y realizar acciones como aprobar, rechazar o mantener el capitán actual."
+
+msgid "Permite enviar a simulação para a aprovação do gestor."
+msgstr "Permite enviar la simulación para la aprobación del gerente."
+
+msgid "Ajuda - Margem do Capitão"
+msgstr "Ayuda - Margen del Capitán"
+
+msgid "Permite visualizar e editar as variáveis de parametrização da margem do capitão com uma margem mínima e máxima"
+msgstr "Permite visualizar y editar las variables de parametrización del margen del capitán con un margen mínimo y máximo"
+
+msgid "Ajuda - Catlote Desconto"
+msgstr "Ayuda - Descuento Catlote"
+
+msgid "Permite a parametrização dos descontos de cada catlote"
+msgstr "Permite la parametrización de los descuentos de cada catlote"
+
+msgid "Clique no checkbox para selecionar os catlotes que deseja simular. Essa ação também configura automaticamente a data inicial e final em 30 dias, sendo possível editar essas datas."
+msgstr "Haga clic en la casilla de verificación para seleccionar los catlotes que desea simular. Esta acción también configura automáticamente la fecha de inicio y final en 30 días, pudiendo editar estas fechas."
+
+msgid "Após selecionar os catlotes, o botão de simulação será habilitado, permitindo o acesso à página de simulação de impactos."
+msgstr "Después de seleccionar los catlotes, el botón de simulación se habilitará, permitiendo el acceso a la página de simulación de impactos."
+
+msgid "Colunas editáveis:"
+msgstr "Columnas editables:"
+
+msgid "Data Inicial"
+msgstr "Fecha Inicial"
+
+msgid "Data Final"
+msgstr "Fecha Final"
+
+msgid "Quantidade"
+msgstr "Cantidad"
+
+msgid "Desconto %"
+msgstr "Descuento %"
+
+msgid "Desconto"
+msgstr "Descuento"
+
+msgid "Participação %"
+msgstr "Participación %"
+
+msgid "Participação"
+msgstr "Participación"
+
+msgid "Participações (Atuais)"
+msgstr "Participaciones (Actuales)"
+
+msgid "Participação % (Estim.)"
+msgstr "Participación % (Estim.)"
+
+msgid "Ajuda - Simulação de Catlote"
+msgstr "Ayuda - Simulación de Catlote"
+
+msgid "Detalhamento de Produtos"
+msgstr "Detalle de Productos"
+
+msgid "Fornecedor"
+msgstr "Proveedor"
+
+msgid "Custo contrato"
+msgstr "Costo del contrato"
+
+msgid "Moeda"
+msgstr "Moneda"
+
+msgid "Preço SAP Atual"
+msgstr "Precio SAP Actual"
+
+msgid "Média Regular (sem campanha)"
+msgstr "Promedio Regular (sin campaña)"
+
+msgid "Média Promo (com campanha)"
+msgstr "Promedio Promo (con campaña)"
+
+msgid "Faturamento Bruto (sem campanha)"
+msgstr "Facturación Bruta (sin campaña)"
+
+msgid "Faturamento Bruto (com campanha)"
+msgstr "Facturación Bruta (con campaña)"
+
+msgid "Faturamento Líquido (sem campanha)"
+msgstr "Facturación Neta (sin campaña)"
+
+msgid "Faturamento Líquido (com campanha)"
+msgstr "Facturación Neta (con campaña)"
+
+msgid "Margem (sem campanha)"
+msgstr "Margen (sin campaña)"
+
+msgid "Margem (com campanha)"
+msgstr "Margen (con campaña)"
+
+msgid "Margem Relativa (com campanha)"
+msgstr "Margen Relativa (con campaña)"
+
+msgid "Permite visualizar e editar os resultados estimados das principais métricas de receita, com e sem a campanha de desconto."
+msgstr "Permite visualizar y editar los resultados estimados de las principales métricas de ingresos, con y sin la campaña de descuento."
+
+msgid "Ajuda - Command Center"
+msgstr "Ayuda - Command Center"
+
+msgid "Análises diversas para identificação de inconsistências, erros, pontos de atenção e oportunidades."
+msgstr "Análisis diversos para identificar inconsistencias, errores, puntos de atención y oportunidades."
+
+msgid "Cada card mostra a quantidade de registros identificados para cada análise."
+msgstr "Cada tarjeta muestra la cantidad de registros identificados para cada análisis."
+
+msgid "Ao clicar no card, é exibido o detalhamento dos registros."
+msgstr "Al hacer clic en la tarjeta, se muestra el detalle de los registros."
+
+msgid "Ajuda - Delta Preço"
+msgstr "Ayuda - Delta de Precio"
+
+msgid "Permite visualizar e editar o delta preço por CPC 136"
+msgstr "Permite visualizar y editar el delta de precio por CPC 136"
+
+msgid "Ajuda - Posicionamento de Mercado"
+msgstr "Ayuda - Posicionamiento de Mercado"
+
+msgid "Permite visualizar e editar o posicionamento de mercado por CPC 136"
+msgstr "Permite visualizar y editar el posicionamiento de mercado por CPC 136"
+
+msgid "Ajuda - Arquitetura de Preços"
+msgstr "Ayuda - Arquitectura de Precios"
+
+msgid "Permite visualizar e editar as variáveis que definem o preço de cada peça."
+msgstr "Permite visualizar y editar las variables que definen el precio de cada pieza."
+
+msgid "Permite simular os resultados das alterações nas variáveis."
+msgstr "Permite simular los resultados de los cambios en las variables."
+
+msgid "Ajuda - Simulação de Preços"
+msgstr "Ayuda - Simulación de Precios"
+
+msgid "Permite visualizar os resultados estimados da arquitetura de preços nas principais métricas de receita por peça."
+msgstr "Permite visualizar los resultados estimados de la arquitectura de precios en las principales métricas de ingresos por pieza."
+
+msgid "Ajuda - Otimização de Preços"
+msgstr "Ayuda - Optimización de Precios"
+
+msgid "Permite visualizar e editar o preço de cada peça e avaliar os impactos nas principais métricas de receita"
+msgstr "Permite visualizar y editar el precio de cada pieza y evaluar los impactos en las principales métricas de ingresos"
+
+msgid "Ajuda - Estratégia Comercial"
+msgstr "Ayuda - Estrategia Comercial"
+
+msgid "Permite visualizar e editar a estratégia comercial por CPC 136"
+msgstr "Permite visualizar y editar la estrategia comercial por CPC 136"
+
+msgid "Part Number"
+msgstr "Número de Pieza"
+
+msgid "Volume (12 meses)"
+msgstr "Volumen (12 meses)"
+
+msgid "Custo Médio (unit)"
+msgstr "Costo Promedio (unidad)"
+
+msgid "Preço SAP (atual)"
+msgstr "Precio SAP (actual)"
+
+msgid "Data Consulta"
+msgstr "Fecha de Consulta"
+
+msgid "Published CPC"
+msgstr "CPC Publicado"
+
+msgid "Preço Concess C/ Imposto"
+msgstr "Precio Concesionario C/ Impuesto"
+
+msgid "Preço Público"
+msgstr "Precio Público"
+
+msgid "Tab Capitão"
+msgstr "Pestaña Capitán"
+
+msgid "Tab Estratégia"
+msgstr "Pestaña Estrategia"
+
+msgid "Tab Margem"
+msgstr "Pestaña Margen"
+
+msgid "Tab Delta Preço"
+msgstr "Pestaña Delta de Precio"
+
+msgid "Custo Médio Zerado"
+msgstr "Costo Promedio en Cero"
+
+msgid "Itens com custo médio zerado que podem afetar o modelo de precificação"
+msgstr "Ítems con costo promedio en cero que pueden afectar el modelo de precios"
+
+msgid "Custo Negativo"
+msgstr "Costo Negativo"
+
+msgid "Itens com custo total negativo (influência do costs factor)"
+msgstr "Ítems con costo total negativo (influencia del factor de costos)"
+
+msgid "Baixo Custo Alta Margem"
+msgstr "Bajo Costo Alta Margen"
+
+msgid "Custo médio < R$ 0,50 e margem > 90%"
+msgstr "Costo promedio < R$ 0,50 y margen > 90%"
+
+msgid "Baixo Custo Margem Negativa"
+msgstr "Bajo Costo Margen Negativa"
+
+msgid "Custo médio < R$ 0,50 e margem negativa"
+msgstr "Costo promedio < R$ 0,50 y margen negativa"
+
+msgid "Baixo Custo Margem Zero"
+msgstr "Bajo Costo Margen Cero"
+
+msgid "Custo médio < R$ 0,50 e margem zerada"
+msgstr "Costo promedio < R$ 0,50 y margen en cero"
+
+msgid "Baixo Custo Alta Venda"
+msgstr "Bajo Costo Alta Venta"
+
+msgid "Custo médio < R$ 0,50 com volume anual acima de 1000"
+msgstr "Costo promedio < R$ 0,50 con volumen anual superior a 1000"
+
+msgid "Preço Baixo Margem Negativa"
+msgstr "Precio Bajo Margen Negativa"
+
+msgid "Preço SAP menor que R$ 1,00 e margem negativa"
+msgstr "Precio SAP menor que R$ 1,00 y margen negativa"
+
+msgid "Margem Negativa e Outros Casos"
+msgstr "Margen Negativa y Otros Casos"
+
+msgid "Análise de casos diversos com margem negativa"
+msgstr "Análisis de diversos casos con margen negativa"
+
+msgid "Preços GM"
+msgstr "Precios GM"
+
+msgid "Preço Público (Varejo) menor que Preço Concess (Distribuidor)"
+msgstr "Precio Público (Minorista) menor que Precio Concesionario (Distribuidor)"
+
+msgid "Atualizar CPC"
+msgstr "Actualizar CPC"
+
+msgid "Atualizar tabelas de parâmetros para simulações"
+msgstr "Actualizar tablas de parámetros para simulaciones"

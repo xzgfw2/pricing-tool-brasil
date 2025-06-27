@@ -1,0 +1,654 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GM Pricing Tool\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: en\n"
+
+# General translations
+msgid "CPC1_3_6"
+msgstr "CPC1_3_6"
+
+msgid "Manual"
+msgstr "Manual"
+
+msgid "UUID Alteração"
+msgstr "Change UUID"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Aprovar"
+msgstr "Approve"
+
+msgid "Enviar para aprovação"
+msgstr "Send for approval"
+
+msgid "aprovado"
+msgstr "approved"
+
+msgid "recusado"
+msgstr "rejected"
+
+msgid "Erro: Não há dados para aprovar/recusar"
+msgstr "Error: No data to approve/reject"
+
+msgid "Status alterado para"
+msgstr "Status changed to"
+
+msgid "Erro"
+msgstr "Error"
+
+msgid "Erro ao processar aprovação:"
+msgstr "Error processing approval:"
+
+# Marketing page translations
+msgid "Peça"
+msgstr "Part"
+
+msgid "Marca"
+msgstr "Brand"
+
+msgid "Tipo"
+msgstr "Type"
+
+msgid "Descrição"
+msgstr "Description"
+
+msgid "Preço Tabela"
+msgstr "List Price"
+
+msgid "Estimado"
+msgstr "Estimated"
+
+msgid "Preço Venda"
+msgstr "Sale Price"
+
+msgid "Volume"
+msgstr "Volume"
+
+msgid "Fat Bruto"
+msgstr "Gross Revenue"
+
+msgid "Fat Liq"
+msgstr "Net Revenue"
+
+msgid "Margem ABS"
+msgstr "ABS Margin"
+
+msgid "← Voltar"
+msgstr "← Back"
+
+msgid "Copiar"
+msgstr "Copy"
+
+msgid "Simulação"
+msgstr "Simulation"
+
+msgid "Baixar Excel"
+msgstr "Download Excel"
+
+msgid "Baixar arquivo em Excel"
+msgstr "Download Excel file"
+
+msgid "Detalhes"
+msgstr "Details"
+
+msgid "Ver detalhes no Power BI"
+msgstr "View details in Power BI"
+
+msgid "Expandir Todos"
+msgstr "Expand All"
+
+msgid "Colapsar Todos"
+msgstr "Collapse All"
+
+msgid "Ano Frota"
+msgstr "Year Fleet"
+
+msgid "Aplicações"
+msgstr "Applications"
+
+msgid "Elasticidade"
+msgstr "Elasticity"
+
+msgid "Estoque"
+msgstr "Stock"
+
+msgid "Frota"
+msgstr "Fleet"
+
+msgid "Preço"
+msgstr "Price"
+
+msgid "Grupo"
+msgstr "Group"
+
+msgid "%"
+msgstr "%"
+
+msgid "Regra"
+msgstr "Rule"
+
+msgid "Produtos"
+msgstr "Products"
+
+msgid "Margem %"
+msgstr "Margin %"
+
+msgid "Efetuar simulação ?"
+msgstr "Perform simulation ?"
+
+msgid "A simulação pode levar vários minutos para ser efetuada"
+msgstr "The simulation may take several minutes to be performed"
+
+msgid "Sim"
+msgstr "Yes"
+
+msgid "Não"
+msgstr "No"
+
+msgid "Faturamento Bruto"
+msgstr "Gross Revenue"
+
+msgid "Faturamento Líquido"
+msgstr "Net Revenue"
+
+msgid "Margem"
+msgstr "Margin"
+
+msgid "Volume dos últimos 12 meses com preços e custos vigentes"
+msgstr "Volume of the last 12 months with current prices and costs"
+
+msgid "Atualizar"
+msgstr "Update"
+
+msgid "Otimização de Preços"
+msgstr "Price Optimization"
+
+# Optimization page translations
+msgid "Estratégia"
+msgstr "Strategy"
+
+msgid "Qtd de aplicações"
+msgstr "Number of applications"
+
+msgid "Frota disponível"
+msgstr "Available Fleet"
+
+msgid "Estoque GM"
+msgstr "GM Stock"
+
+msgid "Ano frota"
+msgstr "Fleet Year"
+
+msgid "Custo medio"
+msgstr "Average Cost"
+
+msgid "Preço SAP atual"
+msgstr "Current SAP Price"
+
+msgid "Preço SAP novo"
+msgstr "New SAP Price"
+
+msgid "Data Alterações"
+msgstr "Change Dates"
+
+msgid "Data Alteração"
+msgstr "Change Date"
+
+# App translations
+msgid "Command Center"
+msgstr "Command Center"
+
+msgid "Arquitetura de Preço"
+msgstr "Price Architecture"
+
+msgid "Simulação do Resultado"
+msgstr "Result Simulation"
+
+msgid "CatLote"
+msgstr "CatLote"
+
+msgid "Sem Promoção"
+msgstr "No Promotion"
+
+msgid "Com Promoção"
+msgstr "With Promotion"
+
+msgid "Soma atual: "
+msgstr "Sum Actual: "
+
+msgid "Faltam"
+msgstr "Remaining"
+
+msgid "Excedem"
+msgstr "Exceeding"
+
+msgid "para atingir 100%"
+msgstr "to reach 100%"
+
+msgid "Valores corretos! Soma = 100%"
+msgstr "Correct values! Sum = 100%"
+
+msgid "Erro ao preencher datas automaticamente: "
+msgstr "Error filling dates automatically: "
+
+msgid "Simular impactos"
+msgstr "Simulate impacts"
+
+msgid "Erro ao validar os valores"
+msgstr "Error validating values"
+
+msgid "CatLote Desconto"
+msgstr "CatLote Discount"
+
+msgid "Simulação - CatLote"
+msgstr "CatLote Simulation"
+
+msgid "Aprovações"
+msgstr "Approvals"
+
+msgid "Capitão"
+msgstr "Captain"
+
+msgid "Simulação do Capitão"
+msgstr "Captain Simulation"
+
+msgid "Atenção! Só pode haver um capitão por CPC 1_3_6"
+msgstr "Attention! Only one captain can be assigned per CPC 1_3_6"
+
+msgid "Acessórios"
+msgstr "Accessories"
+
+msgid "Repres. Faturamento"
+msgstr "Revenue Representation"
+
+msgid "Repres. Volume"
+msgstr "Volume Representation"
+
+msgid "Repres. Penetração"
+msgstr "Penetration Representation"
+
+msgid "Situação atual dos capitão"
+msgstr "Current Captain Situation"
+
+msgid "Critério"
+msgstr "Criterion"
+
+msgid "Rank"
+msgstr "Rank"
+
+msgid "Data Inclusão"
+msgstr "Inclusion Date"
+
+msgid "Penetração"
+msgstr "Penetration"
+
+msgid "Capitão (atual)"
+msgstr "Captain (Current)"
+
+msgid "Capitão (sistema)"
+msgstr "Captain (system)"
+
+msgid "Aprovar Mudança ?"
+msgstr "Approve Change"
+
+msgid "Capitão (novo)"
+msgstr "Captain (new)"
+
+msgid "Manual / Sistema"
+msgstr "Manual / System"
+
+msgid "Estratégia Comercial"
+msgstr "Commercial Strategy"
+
+msgid "Posicionamento de Mercado"
+msgstr "Market Positioning"
+
+msgid "Preço Concorrente Distribuidor"
+msgstr "Competitor Price (Dealer)"
+
+msgid "Preço Dealer GM"
+msgstr "GM Dealer Price"
+
+msgid "Price Index Distribuidor (AS IS)"
+msgstr "Dealer Price Index (AS IS)"
+
+msgid "Meta Competitividade (TO BE)"
+msgstr "Competitiveness Meta (TO BE)"
+
+msgid "Ativo"
+msgstr "Active"
+
+msgid "Margem do Capitão"
+msgstr "Captain Margin"
+
+msgid "Delta Preço"
+msgstr "Price Delta"
+
+msgid "Mercado"
+msgstr "Marketing"
+
+msgid "Build Up"
+msgstr "Build Up"
+
+msgid "Configurações"
+msgstr "Settings"
+
+msgid "404: Not found"
+msgstr "404: Not found"
+
+msgid "Fatores"
+msgstr "Factors"
+
+msgid "Base Price"
+msgstr "Base Price"
+
+msgid "Custo Médio"
+msgstr "Average Cost"
+
+msgid "Simular Capitão"
+msgstr "Simulate Captain"
+
+msgid "Delta Preço Min."
+msgstr "Min. Price Delta"
+
+msgid "Delta Preço Max."
+msgstr "Max. Price Delta"
+
+msgid "Informações sobre a página"
+msgstr "Informations about the page"
+
+msgid "Fechar"
+msgstr "Close"
+
+msgid "Ajuda - Aprovações"
+msgstr "Help - Approvals"
+
+msgid "Workflow de aprovações"
+msgstr "Approval Workflow"
+
+msgid "Clique na aba para visualizar os registros pendentes de aprovação."
+msgstr "Click on the tab to view pending approval records."
+
+msgid "Clique nos botões para aceitar ou recusar a aprovação."
+msgstr "Click the buttons to accept or reject the approval."
+
+msgid "Ajuda - Buildup"
+msgstr "Help - Buildup"
+
+msgid "Permite visualizar e editar os fatores de buildup"
+msgstr "Allows viewing and editing buildup factors"
+
+msgid "Permite calcular o buildup por base price e custo médio."
+msgstr "Allows calculating buildup by base price and average cost."
+
+msgid "Permite enviar as alterações realizadas para a aprovação do gestor."
+msgstr "Allows sending the changes made for manager approval."
+
+msgid "Ajuda - Capitão"
+msgstr "Help - Captain"
+
+msgid "Permite visualizar e editar as variáveis de parametrização do capitão."
+msgstr "Allows viewing and editing captain parameterization variables."
+
+msgid "Permite visualizar a lista de produtos com os respectivos capitães atuais."
+msgstr "Allows viewing the list of products with their current captains."
+
+msgid "Use o botão de simulação para gerar uma lista com os capitães sugeridos pelo sistema, de acordo com as variáveis de parametrização."
+msgstr "Use the simulation button to generate a list of captains suggested by the system, according to the parameterization variables."
+
+msgid "Ajuda - Simulação do Capitão"
+msgstr "Help - Captain Simulation"
+
+msgid "Permite visualizar e editar o capitão sugerido pelo algoritmo de simulação."
+msgstr "Allows viewing and editing the captain suggested by the simulation algorithm."
+
+msgid "A lista apresentada permite visualizar o capitão atual, o capitão sugerido pelo algoritmo e realizar ações como aprovar, recusar ou manter o capitão atual."
+msgstr "The presented list allows viewing the current captain, the captain suggested by the algorithm, and performing actions such as approving, rejecting, or maintaining the current captain."
+
+msgid "Permite enviar a simulação para a aprovação do gestor."
+msgstr "Allows sending the simulation for manager approval."
+
+msgid "Ajuda - Margem do Capitão"
+msgstr "Help - Captain Margin"
+
+msgid "Permite visualizar e editar as variáveis de parametrização da margem do capitão com uma margem mínima e máxima"
+msgstr "Allows viewing and editing captain margin parameterization variables with minimum and maximum margins"
+
+msgid "Ajuda - Catlote Desconto"
+msgstr "Help - Catlote Discount"
+
+msgid "Permite a parametrização dos descontos de cada catlote"
+msgstr "Allows parameterization of discounts for each catlote"
+
+msgid "Clique no checkbox para selecionar os catlotes que deseja simular. Essa ação também configura automaticamente a data inicial e final em 30 dias, sendo possível editar essas datas."
+msgstr "Click the checkbox to select the catlotes you want to simulate. This action also automatically sets the start and end dates to 30 days, and these dates can be edited."
+
+msgid "Após selecionar os catlotes, o botão de simulação será habilitado, permitindo o acesso à página de simulação de impactos."
+msgstr "After selecting the catlotes, the simulation button will be enabled, allowing access to the impact simulation page."
+
+msgid "Colunas editáveis:"
+msgstr "Editable columns:"
+
+msgid "Data Inicial"
+msgstr "Start Date"
+
+msgid "Data Final"
+msgstr "End Date"
+
+msgid "Quantidade"
+msgstr "Quantity"
+
+msgid "Desconto %"
+msgstr "Discount %"
+
+msgid "Desconto"
+msgstr "Discount"
+
+msgid "Participação %"
+msgstr "Participation %"
+
+msgid "Participação"
+msgstr "Participation"
+
+msgid "Participações (Atuais)"
+msgstr "Participations (Current)"
+
+msgid "Participação % (Estim.)"
+msgstr "Participation % (Est.)"
+
+msgid "Ajuda - Simulação de Catlote"
+msgstr "Help - Catlote Simulation"
+
+msgid "Detalhamento de Produtos"
+msgstr "Product Details"
+
+msgid "Fornecedor"
+msgstr "Supplier"
+
+msgid "Custo contrato"
+msgstr "Contract Cost"
+
+msgid "Moeda"
+msgstr "Currency"
+
+msgid "Preço SAP Atual"
+msgstr "Current SAP Price"
+
+msgid "Média Regular (sem campanha)"
+msgstr "Regular Average (without campaign)"
+
+msgid "Média Promo (com campanha)"
+msgstr "Promo Average (with campaign)"
+
+msgid "Faturamento Bruto (sem campanha)"
+msgstr "Gross Revenue (without campaign)"
+
+msgid "Faturamento Bruto (com campanha)"
+msgstr "Gross Revenue (with campaign)"
+
+msgid "Faturamento Líquido (sem campanha)"
+msgstr "Net Revenue (without campaign)"
+
+msgid "Faturamento Líquido (com campanha)"
+msgstr "Net Revenue (with campaign)"
+
+msgid "Margem (sem campanha)"
+msgstr "Margin (without campaign)"
+
+msgid "Margem (com campanha)"
+msgstr "Margin (with campaign)"
+
+msgid "Margem Relativa (com campanha)"
+msgstr "Relative Margin (with campaign)"
+
+msgid "Permite visualizar e editar os resultados estimados das principais métricas de receita, com e sem a campanha de desconto."
+msgstr "Allows viewing and editing estimated results of key revenue metrics, with and without the discount campaign."
+
+msgid "Ajuda - Command Center"
+msgstr "Help - Command Center"
+
+msgid "Análises diversas para identificação de inconsistências, erros, pontos de atenção e oportunidades."
+msgstr "Various analyses for identifying inconsistencies, errors, points of attention, and opportunities."
+
+msgid "Cada card mostra a quantidade de registros identificados para cada análise."
+msgstr "Each card shows the number of records identified for each analysis."
+
+msgid "Ao clicar no card, é exibido o detalhamento dos registros."
+msgstr "When clicking on the card, the details of the records are displayed."
+
+msgid "Ajuda - Delta Preço"
+msgstr "Help - Price Delta"
+
+msgid "Permite visualizar e editar o delta preço por CPC 136"
+msgstr "Allows viewing and editing price delta by CPC 136"
+
+msgid "Ajuda - Posicionamento de Mercado"
+msgstr "Help - Market Positioning"
+
+msgid "Permite visualizar e editar o posicionamento de mercado por CPC 136"
+msgstr "Allows viewing and editing market positioning by CPC 136"
+
+msgid "Ajuda - Arquitetura de Preços"
+msgstr "Help - Price Architecture"
+
+msgid "Permite visualizar e editar as variáveis que definem o preço de cada peça."
+msgstr "Allows viewing and editing the variables that define the price of each part."
+
+msgid "Permite simular os resultados das alterações nas variáveis."
+msgstr "Allows simulating the results of changes in variables."
+
+msgid "Ajuda - Simulação de Preços"
+msgstr "Help - Price Simulation"
+
+msgid "Permite visualizar os resultados estimados da arquitetura de preços nas principais métricas de receita por peça."
+msgstr "Allows viewing the estimated results of price architecture on key revenue metrics per part."
+
+msgid "Ajuda - Otimização de Preços"
+msgstr "Help - Price Optimization"
+
+msgid "Permite visualizar e editar o preço de cada peça e avaliar os impactos nas principais métricas de receita"
+msgstr "Allows viewing and editing the price of each part and evaluating impacts on key revenue metrics"
+
+msgid "Ajuda - Estratégia Comercial"
+msgstr "Help - Commercial Strategy"
+
+msgid "Permite visualizar e editar a estratégia comercial por CPC 136"
+msgstr "Allows viewing and editing commercial strategy by CPC 136"
+
+msgid "Part Number"
+msgstr "Part Number"
+
+msgid "Volume (12 meses)"
+msgstr "Volume (12 months)"
+
+msgid "Custo Médio (unit)"
+msgstr "Average Cost (unit)"
+
+msgid "Preço SAP (atual)"
+msgstr "SAP Price (current)"
+
+msgid "Data Consulta"
+msgstr "Query Date"
+
+msgid "Published CPC"
+msgstr "Published CPC"
+
+msgid "Preço Concess C/ Imposto"
+msgstr "Dealer Price W/ Tax"
+
+msgid "Preço Público"
+msgstr "Public Price"
+
+msgid "Tab Capitão"
+msgstr "Captain Tab"
+
+msgid "Tab Estratégia"
+msgstr "Strategy Tab"
+
+msgid "Tab Margem"
+msgstr "Margin Tab"
+
+msgid "Tab Delta Preço"
+msgstr "Price Delta Tab"
+
+msgid "Custo Médio Zerado"
+msgstr "Zero Average Cost"
+
+msgid "Itens com custo médio zerado que podem afetar o modelo de precificação"
+msgstr "Items with zero average cost that may affect the pricing model"
+
+msgid "Custo Negativo"
+msgstr "Negative Cost"
+
+msgid "Itens com custo total negativo (influência do costs factor)"
+msgstr "Items with negative total cost (costs factor influence)"
+
+msgid "Baixo Custo Alta Margem"
+msgstr "Low Cost High Margin"
+
+msgid "Custo médio < R$ 0,50 e margem > 90%"
+msgstr "Average cost < R$ 0.50 and margin > 90%"
+
+msgid "Baixo Custo Margem Negativa"
+msgstr "Low Cost Negative Margin"
+
+msgid "Custo médio < R$ 0,50 e margem negativa"
+msgstr "Average cost < R$ 0.50 and negative margin"
+
+msgid "Baixo Custo Margem Zero"
+msgstr "Low Cost Zero Margin"
+
+msgid "Custo médio < R$ 0,50 e margem zerada"
+msgstr "Average cost < R$ 0.50 and zero margin"
+
+msgid "Baixo Custo Alta Venda"
+msgstr "Low Cost High Sales"
+
+msgid "Custo médio < R$ 0,50 com volume anual acima de 1000"
+msgstr "Average cost < R$ 0.50 with annual volume above 1000"
+
+msgid "Preço Baixo Margem Negativa"
+msgstr "Low Price Negative Margin"
+
+msgid "Preço SAP menor que R$ 1,00 e margem negativa"
+msgstr "SAP price less than R$ 1.00 and negative margin"
+
+msgid "Margem Negativa e Outros Casos"
+msgstr "Negative Margin and Other Cases"
+
+msgid "Análise de casos diversos com margem negativa"
+msgstr "Analysis of various cases with negative margin"
+
+msgid "Preços GM"
+msgstr "GM Prices"
+
+msgid "Preço Público (Varejo) menor que Preço Concess (Distribuidor)"
+msgstr "Public Price (Retail) lower than Dealer Price (Distributor)"
+
+msgid "Atualizar CPC"
+msgstr "Update CPC"
+
+msgid "Atualizar tabelas de parâmetros para simulações"
+msgstr "Update parameter tables for simulations"

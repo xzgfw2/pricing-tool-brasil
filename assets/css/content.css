@@ -1,0 +1,150 @@
+.container-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.no-content-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 20px;
+}
+
+/* Otimização de Preços */
+.optimization-content {
+    height: 100vh;
+    width: 100%;
+}
+.validation-message {
+    margin-top: 10px;
+}
+.description-message {
+    color: black;
+    font-size: 1rem;
+    margin-bottom: 10px;
+} 
+.configs-space-cards {
+    background: white;
+    margin-bottom: 1rem;
+}
+.table-container {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    background: white;
+}
+.import-excel {
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    justify-content: center;
+    align-items: center;
+    border-width: 1px;
+    border-style: dashed;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0px;
+}
+.page-content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    gap: 1rem;
+    background: white;
+}
+
+/* Dropdown */
+.dropdown-date {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+/* Espaçador flexível */
+.flexible-spacer {
+    flex: 1;
+}
+/* Botões */
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.card-container {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.category-button {
+    width: 100%;
+    background-color: transparent;
+    color: black;
+    display: flex;
+    justify-content: center;
+}
+
+/* Container do dropdown de moeda com largura e margem específica */
+.input-currency-container {
+    width: 135px;
+    padding: 0;
+    margin-left: 5px;
+}
+
+/* Container da taxa de câmbio FX */
+.fx-info {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Container dos elementos Currency + FX Rate (quando visível) */
+.currency-fx-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.input-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.d-none {
+    display: none !important;
+}
+
+
+.upload-file {
+    width: 100%;
+    height: 120px;
+    align-content: center;
+    text-align: center;
+    border-width: 1px;
+    border-style: dashed;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.validation-message {
+    margin-top: 10px;
+    min-height: 40px;
+}
+
+.success-message {
+    color: green;
+}
+
+.warning-message {
+    color: #000000;
+}
+
+.error-message {
+    color: red;
+}
+
+

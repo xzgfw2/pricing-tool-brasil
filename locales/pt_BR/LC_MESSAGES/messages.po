@@ -1,0 +1,206 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GM Pricing Tool\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: pt_BR\n"
+
+# Traduções gerais
+msgid "CPC1_3_6"
+msgstr "CPC1_3_6"
+
+msgid "Manual"
+msgstr "Manual"
+
+msgid "UUID Alteração"
+msgstr "UUID Alteração"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Aprovar"
+msgstr "Aprovar"
+
+msgid "Enviar para aprovação"
+msgstr "Enviar para aprovação"
+
+msgid "aprovado"
+msgstr "aprovado"
+
+msgid "recusado"
+msgstr "recusado"
+
+msgid "Erro: Não há dados para aprovar/recusar"
+msgstr "Erro: Não há dados para aprovar/recusar"
+
+msgid "Status alterado para"
+msgstr "Status alterado para"
+
+msgid "Erro"
+msgstr "Erro"
+
+msgid "Erro ao processar aprovação:"
+msgstr "Erro ao processar aprovação:"
+
+# Traduções da página de marketing
+msgid "Peça"
+msgstr "Peça"
+
+msgid "Marca"
+msgstr "Marca"
+
+msgid "Tipo"
+msgstr "Tipo"
+
+msgid "Posicionamento"
+msgstr "Posicionamento"
+
+msgid "Preço Sugerido"
+msgstr "Preço Sugerido"
+
+msgid "Preço Mínimo"
+msgstr "Preço Mínimo"
+
+msgid "Preço Máximo"
+msgstr "Preço Máximo"
+
+msgid "Estratégia"
+msgstr "Estratégia"
+
+msgid "MARGEM"
+msgstr "MARGEM"
+
+msgid "FATURAMENTO"
+msgstr "FATURAMENTO"
+
+msgid "Preço Concorrente Distribuidor"
+msgstr "Preço Concorrente Distribuidor"
+
+msgid "Preço Dealer GM"
+msgstr "Preço Dealer GM"
+
+msgid "Price Index Distribuidor (AS IS)"
+msgstr "Price Index Distribuidor (AS IS)"
+
+msgid "Meta Competitividade (TO BE)"
+msgstr "Meta Competitividade (TO BE)"
+
+msgid "Ativo"
+msgstr "Ativo"
+
+# Traduções da página de capitão
+msgid "Rank"
+msgstr "Rank"
+
+msgid "Part Number"
+msgstr "Part Number"
+
+msgid "Descrição"
+msgstr "Descrição"
+
+msgid "Critério"
+msgstr "Critério"
+
+msgid "Repres. Vol"
+msgstr "Repres. Vol"
+
+msgid "Repres. Faturamento"
+msgstr "Repres. Faturamento"
+
+msgid "Data Inclusão"
+msgstr "Data Inclusão"
+
+msgid "Penetração"
+msgstr "Penetração"
+
+msgid "Capitão (atual)"
+msgstr "Capitão (atual)"
+
+msgid "Simular"
+msgstr "Simular"
+
+msgid "Simular capitão"
+msgstr "Simular capitão"
+
+# Traduções da página de simulação de capitão
+msgid "Manual / Sistema"
+msgstr "Manual / Sistema"
+
+msgid "Capitão (sistema)"
+msgstr "Capitão (sistema)"
+
+msgid "Aprovar Mudança ?"
+msgstr "Aprovar Mudança ?"
+
+msgid "Capitão (novo)"
+msgstr "Capitão (novo)"
+
+msgid "Pendente"
+msgstr "Pendente"
+
+msgid "Aceitar"
+msgstr "Aceitar"
+
+msgid "Recusar"
+msgstr "Recusar"
+
+msgid "Manter"
+msgstr "Manter"
+
+# Traduções da página de margem do capitão
+msgid "BuildUp Type"
+msgstr "BuildUp Type"
+
+msgid "Genuine"
+msgstr "Genuine"
+
+msgid "ACDelco"
+msgstr "ACDelco"
+
+msgid "ACDelco AM"
+msgstr "ACDelco AM"
+
+msgid "Acessórios"
+msgstr "Acessórios"
+
+msgid "Mg Min"
+msgstr "Mg Min"
+
+msgid "Mg Max"
+msgstr "Mg Max"
+
+# Traduções da página de alteração de senha
+msgid "Email"
+msgstr "Email"
+
+msgid "Senha atual"
+msgstr "Senha atual"
+
+msgid "Nova senha"
+msgstr "Nova senha"
+
+msgid "Confirmar nova senha"
+msgstr "Confirmar nova senha"
+
+msgid "Mudar senha"
+msgstr "Mudar senha"
+
+msgid "Por favor, preencha todos os campos"
+msgstr "Por favor, preencha todos os campos"
+
+msgid "As senhas não coincidem"
+msgstr "As senhas não coincidem"
+
+msgid "Senha alterada com sucesso!"
+msgstr "Senha alterada com sucesso!"
+
+msgid "Ajuda - Command Center"
+msgstr "Ajuda - Command Center"
+
+msgid "Análises diversas para identificação de inconsistências, erros, pontos de atenção e oportunidades."
+msgstr "Análises diversas para identificação de inconsistências, erros, pontos de atenção e oportunidades."
+
+msgid "Cada card mostra a quantidade de registros identificados para cada análise."
+msgstr "Cada card mostra a quantidade de registros identificados para cada análise."
+
+msgid "Ao clicar no card, é exibido o detalhamento dos registros."
+msgstr "Quando clicado no card, é exibido o detalhamento dos registros."

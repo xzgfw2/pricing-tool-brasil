@@ -1,0 +1,118 @@
+/* Colors */
+:root {
+    --primary-color: #1e90ff;
+    /* --secondary-color: #6c757d;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40; */
+}
+
+/* Typography */
+.text-sm {
+    font-size: 12px;
+}
+
+.text-base {
+    font-size: 14px;
+}
+
+.text-lg {
+    font-size: 16px;
+}
+
+.text-xl {
+    font-size: 18px;
+}
+
+/* Table Styles */
+.table-header {
+    background-color: var(--light-color);
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+    height: auto;
+    min-height: 60px;
+    white-space: normal;
+}
+
+.table-cell {
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+    height: auto;
+    min-height: 40px;
+    white-space: normal;
+    font-weight: normal;
+}
+
+/* Label and Input Styles */
+.label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--dark-color);
+}
+
+.input {
+    border-radius: 4px;
+    border: 1px solid var(--secondary-color);
+    padding: 8px;
+    font-size: 14px;
+}
+
+/* Button Style */
+.btn {
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+/* Table Conditional Styles */
+.cell-left {
+    text-align: left;
+}
+
+.cell-field {
+    width: 180px;
+}
+
+/* Editable Cell Style */
+.cell-editable {
+    background-color: #e6f3ff;
+    border: 1px solid #ccc;
+}
+
+/* Non-editable Cell Style */
+.cell-readonly {
+    background-color: rgb(250, 250, 250);
+    color: darkgrey;
+    pointer-events: none;
+}
+
+/* Container Styles */
+.container-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.container-table {
+    border-spacing: 0px 5px;
+}
+
+/* Alert Styles */
+/* .alert {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.alert-danger {
+    background-color: #dc3545;
+    color: white;
+} */
