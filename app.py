@@ -1,3 +1,5 @@
+#Pagina Pricing tool atualizada dia 01/07
+
 import os
 import dash
 import dash_bootstrap_components as dbc
