@@ -193,4 +193,4 @@ def render_page_content(pathname, user):
     ], style=MAIN_CONTAINER_STYLE)
 
 if __name__ == "__main__":
-    app.run(debug=ENVIRONMENT == "dev")
+    app.run(debug=ENVIRONMENT == "prod")
