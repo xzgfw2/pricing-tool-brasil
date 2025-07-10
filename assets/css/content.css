@@ -12,6 +12,15 @@
     font-size: 20px;
 }
 
+.space-content-margin {
+    margin-top: 20px;
+}
+
+/* Componente de Tabulação */
+.tabs-content {
+    margin-bottom: 20px;
+}
+
 /* Otimização de Preços */
 .optimization-content {
     height: 100vh;
@@ -77,22 +86,23 @@
     border-radius: 8px;
 }
 
+
 .category-button {
     width: 100%;
-    background-color: transparent;
-    color: black;
+    background-color: transparent !important;
+    color: black !important;
     display: flex;
     justify-content: center;
+    border: none;
 }
 
-/* Container do dropdown de moeda com largura e margem específica */
+
 .input-currency-container {
     width: 135px;
     padding: 0;
     margin-left: 5px;
 }
 
-/* Container da taxa de câmbio FX */
 .fx-info {
     display: flex;
     justify-content: space-between;
@@ -100,7 +110,6 @@
     flex: 1;
 }
 
-/* Container dos elementos Currency + FX Rate (quando visível) */
 .currency-fx-container {
     display: flex;
     justify-content: space-between;

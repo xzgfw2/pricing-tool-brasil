@@ -2,8 +2,8 @@ import dash_ag_grid as dag
 
 def create_table(
         table_id,
-        row_data,
-        column_defs,
+        data,
+        columns,
         column_size="autoSize",
         dash_grid_options=None,
         style=None,
@@ -14,6 +14,7 @@ def create_table(
         persistence=False,
         persisted_props=None,
         persistence_type=None,
+        suppress_status_bar=True,
     ):
     # Configurações padrão da grid
     default_col_def = {
@@ -38,16 +39,18 @@ def create_table(
         "pagination": pagination,
         "paginationPageSize": rows_per_page,
         "rowSelection": selection_mode,
+        "suppressStatusBar": suppress_status_bar,
     })
 
     # Estilo padrão se não for fornecido
     if style is None:
-        style = {'height': '100%', 'width': '100%'}
+        style = {'height': '50vh', 'width': '100%'}
+        # style = {'height': '100%', 'width': '100%'}
 
     return dag.AgGrid(
         id=table_id,
-        rowData=row_data,
-        columnDefs=column_defs,
+        rowData=data,
+        columnDefs=columns,
         columnSize=column_size,
         dashGridOptions=grid_options,
         defaultColDef=default_col_def,

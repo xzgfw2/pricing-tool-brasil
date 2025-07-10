@@ -61,12 +61,11 @@ def get_requests_for_approval_by_user(user_id):
 
         union_queries = []
         for table_name, config in APPROVAL_TABLE.items():
-            # Definir qual coluna usar para data_alteracoes
-            data_column = "data_simulacao" if table_name == "captain" or table_name == "price" else "data_alteracoes"
 
-            # Definir qual coluna usar para uuid_alteracoes
+            data_column = "data_simulacao" if table_name == "captain" or table_name == "price" else "data_alteracoes"
             uuid_column = "hash_simulacao" if table_name == "price" else "uuid_alteracoes"
 
+            # do not include status 4 (simulation)
             union_queries.append(f"""
                 SELECT 
                     '{table_name}' as source_table,
@@ -74,10 +73,9 @@ def get_requests_for_approval_by_user(user_id):
                     usuario_id,
                     {data_column} as data_alteracoes,
                     {uuid_column} as uuid_alteracoes,
-                    status,
-                    aprovadores_lista
+                    status
                 FROM {config['historic_table']}
-                WHERE usuario_id = {user_id}
+                WHERE usuario_id = {user_id} AND status != 4
             """)
 
         full_query = " UNION ALL ".join(union_queries)

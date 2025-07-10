@@ -11,10 +11,11 @@ from utils.modify_column_if_other_column_changed import modify_column_if_other_c
 from utils.handle_no_data_to_show import handle_no_data_to_show
 from static_data.helper_text import helper_text
 from components.Toast import Toast
+from components.Modal import create_modal
 from components.Helper_button_with_modal import create_help_button_with_modal
 from utils.user_has_permission_to_edit import user_has_permission_to_edit
 from utils.handle_nothing_to_approve import handle_nothing_to_approve
-from styles import CONTAINER_BUTTONS_STYLE, CONTAINER_TABLE_STYLE, CONTAINER_HELPER_BUTTON_STYLE
+from styles import CONTAINER_BUTTONS_STYLE, CONTAINER_TABLE_STYLE, CONTAINER_HELPER_BUTTON_STYLE, MAIN_TITLE_STYLE  
 from translations import _, setup_translations
 
 def create_columns(pathname, user_data):
@@ -74,6 +75,12 @@ def create_approval_buttons(pathname, user_data):
         style=CONTAINER_BUTTONS_STYLE,
     )
 
+helper_button = html.Div(
+    create_help_button_with_modal(
+        modal_title=helper_text["marketing"]["title"],
+        modal_body=helper_text["marketing"]["description"],
+    ), style=CONTAINER_HELPER_BUTTON_STYLE,
+)
 
 def get_layout(pathname, user_data):
 
@@ -98,23 +105,47 @@ def get_layout(pathname, user_data):
         style={'height': '500px'},
     )
 
-    return handle_nothing_to_approve() if table_data is None else [
-        None if pathname == "/approval" else html.Div(
-            [
-                html.Div(className="flexible-spacer"),
-                create_help_button_with_modal(
-                    modal_title=helper_text["marketing"]["title"],
-                    modal_body=helper_text["marketing"]["description"],
-                ),
-            ], style=CONTAINER_HELPER_BUTTON_STYLE,
-        ),
-        container_approval_reject_buttons(table="marketing") if pathname == "/approval" else create_approval_buttons(pathname, user_data),
-        Toast(id="toast-approval-marketing"),
-        html.Div(
-            table,
-            style=CONTAINER_TABLE_STYLE
-        ),
-    ]
+    header = html.Div([
+        html.H1(_('Posicionamento de Mercado'), style=MAIN_TITLE_STYLE),
+        helper_button
+    ], className="container-title")
+
+    container_change_approval = container_approval_reject_buttons(table="marketing")
+    container_send_approval = create_approval_buttons(pathname, user_data)
+
+    toast_approval = Toast(
+        id="toast-approval-marketing",
+        header=_("Aprovação"),
+        toast_message=_("Enviado para aprovação"),
+    )
+
+    toast_reject = Toast(
+        id="toast-approval-reject-marketing",
+    )
+
+    container_table = html.Div(
+        table,
+        style=CONTAINER_TABLE_STYLE
+    )
+
+    return handle_nothing_to_approve() if table_data is None else html.Div([
+        None if pathname == "/approval" else header,
+        container_change_approval if pathname == "/approval" else container_send_approval,
+        toast_approval,
+        toast_reject,
+        container_table,
+    ])
+
+modal_confirm_approval = create_modal(
+    modal_id="modal-confirm-approval-marketing",
+    modal_title="Solicitar Aprovação",
+    modal_body=html.P("Tem certeza que deseja enviar para aprovação?"),
+    modal_footer=html.Div([
+        dbc.Button("Não", id="btn-cancel-approval", color="secondary", className="me-2"),
+        dbc.Button("Sim", id="btn-confirm-approval", color="success")
+    ]),
+    is_open=False
+)
 
 marketing_page = html.Div([
     dbc.Spinner(
@@ -122,7 +153,8 @@ marketing_page = html.Div([
         color="primary",
         size="lg",
         fullscreen=True,
-    )
+    ),
+    modal_confirm_approval,
 ])
 
 @callback(
@@ -142,17 +174,15 @@ def update_marketing_content(pathname, user_data, language):
         return get_layout(pathname, user_data)
     return no_update
 
-# Callback para atualizar a tabela, habilitar botão de aprovação e envio dos dados para o back-end
+# Callback para atualizar a tabela e habilitar botão de aprovação
 @callback(
     Output('table-marketing', 'rowData'),
     Output('button-approval-marketing', 'disabled'),
     Input('table-marketing', 'cellValueChanged'),
-    Input('button-approval-marketing', 'n_clicks'),
     State('table-marketing', 'rowData'),
-    State("store-token", "data"),
     prevent_initial_call=True,
 )
-def update_cell_value(cellValueChanged, n_clicks, row_data, user_data):
+def update_cell_value(cellValueChanged, row_data):
     if cellValueChanged:
 
         updated_row_data = modify_column_if_other_column_changed(
@@ -162,26 +192,57 @@ def update_cell_value(cellValueChanged, n_clicks, row_data, user_data):
             value_to_input="1"
         )
 
-        if n_clicks > 0:
-
-            df = pd.DataFrame(row_data)
-            filtered_df = df.loc[df["manual"] == "1"]
-
-            variables_to_send = {
-                "user_token": user_data["access_token"],
-                "table_data": filtered_df,
-            }
-
-            send_to_approval("marketing", variables_to_send)
-
         return updated_row_data, False
     return no_update, no_update
 
+# Callback para abrir o modal de confirmação de aprovação
+@callback(
+    Output("modal-confirm-approval-marketing", "is_open"),
+    Input("button-approval-marketing", "n_clicks"),
+    prevent_initial_call=True,
+)
+def open_confirm_approval_modal(n_clicks):
+    if n_clicks:
+        return True
+    return False
+
+# Callback para processar a confirmação de aprovação
+@callback(
+    Output("modal-confirm-approval-marketing", "is_open", allow_duplicate=True),
+    Output("toast-approval-marketing", "is_open", allow_duplicate=True),
+    Input("btn-confirm-approval","n_clicks"),
+    Input("btn-cancel-approval","n_clicks"),
+    State("table-marketing", "rowData"),
+    State("store-token", "data"),
+    prevent_initial_call=True,
+)
+def handle_send_approval(confirm_clicks, cancel_clicks, table_data, user_data):
+    triggered_id = ctx.triggered_id
+
+    if triggered_id == "btn-cancel-approval" and cancel_clicks:
+        return False, False
+
+    if triggered_id == "btn-confirm-approval" and confirm_clicks:
+
+        df = pd.DataFrame(table_data)
+        filtered_df = df.loc[df["manual"] == "1"]
+
+        variables_to_send = {
+            "user_token": user_data["access_token"],
+            "table_data": filtered_df,
+        }
+
+        send_to_approval("marketing", variables_to_send)
+
+        return False, True
+    return False, False
+
+
 # Callback para aprovação/rejeição
 @callback(
-    Output("toast-approval-marketing", "is_open"),
-    Output("toast-approval-marketing", "header"),
-    Output("toast-approval-marketing", "children"),
+    Output("toast-approval-reject-marketing", "is_open"),
+    Output("toast-approval-reject-marketing", "header"),
+    Output("toast-approval-reject-marketing", "children"),
     Input("button-approval-accept-marketing", "n_clicks"),
     Input("button-approval-reject-marketing", "n_clicks"),
     State("table-marketing", "rowData"),

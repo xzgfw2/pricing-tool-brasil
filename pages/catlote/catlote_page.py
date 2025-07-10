@@ -14,7 +14,8 @@ from styles import (
     CONTAINER_BUTTONS_STYLE,
     TABLE_HEADER_STYLE,
     TABLE_CELL_STYLE,
-    CONTAINER_HELPER_BUTTON_STYLE
+    CONTAINER_HELPER_BUTTON_STYLE,
+    MAIN_TITLE_STYLE
 )
 from translations import _, setup_translations
 
@@ -142,6 +143,13 @@ def create_buttons():
         style=CONTAINER_BUTTONS_STYLE,
     )
 
+helper_button = html.Div(
+    create_help_button_with_modal(
+        modal_title=helper_text["catlote"]["title"],
+        modal_body=helper_text["catlote"]["description"],
+    ), style=CONTAINER_HELPER_BUTTON_STYLE,
+)
+
 def get_layout(pathname, user_data):
 
     def create_table(filter_promotion, user_data):
@@ -178,34 +186,28 @@ def get_layout(pathname, user_data):
 
         formated_data = format_values(data_dict)
 
-        return html.Div([
-            dbc.Alert(
-                _("Erro na validação"), 
-                id="validation-message",
-                color="danger",
-                style=ALERT_STYLE,
-                is_open=False,
-            ),
-            DataTable(
-                id="catlote-simulation-table",
-                columns=define_columns(filter_promotion),
-                data=formated_data,
-                merge_duplicate_headers=True,
-                row_selectable=False if filter_promotion == "0" or not user_has_permission_to_edit(pathname, user_data) else "multi",
-                style_header=CUSTOM_HEADER_STYLE,
-                style_cell=CUSTOM_CELL_STYLE,
-                style_data_conditional=change_style_data_conditional(filter_promotion),
-                style_table=STYLE_TABLE,
-            ),
-        ])
 
-    help_button = [
-        html.Div(className="flexible-spacer"),
-        create_help_button_with_modal(
-            modal_title=helper_text["catlote"]["title"],
-            modal_body=helper_text["catlote"]["description"],
-        ),
-    ]
+        validation_alert = dbc.Alert(
+            _("Erro na validação"), 
+            id="validation-message",
+            color="danger",
+            style=ALERT_STYLE,
+            is_open=False,
+        )
+
+        data_table = DataTable(
+            id="catlote-simulation-table",
+            columns=define_columns(filter_promotion),
+            data=formated_data,
+            merge_duplicate_headers=True,
+            row_selectable=False if filter_promotion == "0" or not user_has_permission_to_edit(pathname, user_data) else "multi",
+            style_header=CUSTOM_HEADER_STYLE,
+            style_cell=CUSTOM_CELL_STYLE,
+            style_data_conditional=change_style_data_conditional(filter_promotion),
+            style_table=STYLE_TABLE,
+        )
+
+        return html.Div([validation_alert, data_table])
 
     def create_tabs():
         return dbc.Tabs(
@@ -219,10 +221,10 @@ def get_layout(pathname, user_data):
 
     return [
         dcc.Location(id="url-catlote", refresh=True),
-        html.Div(
-            help_button,
-            style=CONTAINER_HELPER_BUTTON_STYLE
-        ),
+        html.Div([
+            html.H1(_('CatLote Desconto'), style=MAIN_TITLE_STYLE),
+            helper_button
+        ], className="container-title"),
         html.Div(
             [
                 create_buttons(),

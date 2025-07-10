@@ -29,7 +29,8 @@ from styles import (
     CONTAINER_BUTTONS_DUAL_STYLE,
     TABLE_HEADER_STYLE,
     TABLE_CELL_STYLE,
-    CONTAINER_HELPER_BUTTON_STYLE
+    CONTAINER_HELPER_BUTTON_STYLE,
+    MAIN_TITLE_STYLE
 )
 from translations import _, setup_translations
 
@@ -420,6 +421,13 @@ def create_discount_editor(catlote_data):
         })
     ])
 
+helper_button = html.Div(
+    create_help_button_with_modal(
+        modal_title=helper_text["catlote_simulation"]["title"],
+        modal_body=helper_text["catlote_simulation"]["description"],
+    ), style=CONTAINER_HELPER_BUTTON_STYLE,
+)
+
 # Callback para controlar o collapse
 @callback(
     Output({"type": "collapse-content", "index": MATCH}, "is_open"),
@@ -436,7 +444,7 @@ def get_layout(pathname, user_data, stored_data=None):
 
     if pathname == "/approval":
         table_data = get_requests_for_approval(table="catlote")
-
+        catlote_data = None
     else:
         if isinstance(stored_data, str):
             catlote_data = deserialize_json(stored_data)
@@ -454,123 +462,121 @@ def get_layout(pathname, user_data, stored_data=None):
 
         table_data = calculated_data["table"]
 
-    return handle_nothing_to_approve() if table_data is None else [
-        dcc.Location(id="url-catlote", refresh=True),
-        Toast(id="toast-approval-catlote"),
-        html.Div(
-            children=[
-                None if pathname == "/approval" else html.Div(
-                    [
-                        html.Div(className="flexible-spacer"),
-                        create_help_button_with_modal(
-                            modal_title=helper_text["catlote_simulation"]["title"],
-                            modal_body=helper_text["catlote_simulation"]["description"],
-                        ),
-                    ], style=CONTAINER_HELPER_BUTTON_STYLE,
+    if table_data is None:
+        return handle_nothing_to_approve()
+
+    location = dcc.Location(id="url-catlote", refresh=True)
+    toast = Toast(id="toast-approval-catlote")
+
+    header = None
+    if pathname != "/approval":
+        header = html.Div([
+            html.H1(_('Simulação - CatLote'), style=MAIN_TITLE_STYLE),
+            helper_button
+        ], className="container-title")
+
+    buttons = (
+        container_approval_reject_buttons(table="catlote")
+        if pathname == "/approval"
+        else html.Div([
+            dbc.Button(_("← Voltar"), href="/catlote", color="secondary"),
+            html.Div([
+                dbc.Button(
+                    _("Baixar Excel"),
+                    id="btn-download-excel-catlote",
+                    color="success",
+                    className="me-2",
+                    n_clicks=0
                 ),
-                container_approval_reject_buttons(table="catlote") if pathname == "/approval" else html.Div(
-                    [
-                        dbc.Button(
-                            _("← Voltar"),
-                            href="/catlote",
-                            color="secondary"
-                        ),
-                        html.Div([
-                            dbc.Button(
-                                _("Baixar Excel"),
-                                id="btn-download-excel-catlote",
-                                color="success",
-                                className="me-2",
-                                n_clicks=0
-                            ),
-                            dbc.Tooltip(
-                                _("Baixar arquivo em Excel"),
-                                target="btn-download-excel-catlote",
-                                placement="top",
-                            ),
-                            dcc.Download(id="download-excel-catlote"),
-                            dbc.Button(
-                                _("Aprovar"),
-                                id="button-approval-simulation-catlote",
-                                color="success",
-                                disabled=False if user_has_permission_to_edit(pathname, user_data) else True,
-                                n_clicks=0
-                            ),
-                            dbc.Tooltip(
-                                _("Enviar para aprovação"),
-                                target="button-approval-simulation-catlote",
-                                placement="top",
-                            ),
-                        ]),
-                    ],
-                    style=CONTAINER_BUTTONS_DUAL_STYLE,
+                dbc.Tooltip(
+                    _("Baixar arquivo em Excel"),
+                    target="btn-download-excel-catlote",
+                    placement="top",
                 ),
-                html.Div(
-                    id="cards-catlote-container",
-                    children=create_cards(calculate_totals(table_data)),
-                    style={"marginBottom": "2rem"}
+                dcc.Download(id="download-excel-catlote"),
+                dbc.Button(
+                    _("Aprovar"),
+                    id="button-approval-simulation-catlote",
+                    color="success",
+                    disabled=not user_has_permission_to_edit(pathname, user_data),
+                    n_clicks=0
                 ),
-                None if pathname == "/approval" else create_discount_editor(catlote_data),
-                html.Div(
-                    id="table-container",
-                    children=[
-                        html.H3(
-                            _("Detalhamento de Produtos"),
-                            style={
-                                "fontSize": "1.1rem",
-                                "fontWeight": "500",
-                                "color": "#212529",
-                                "marginBottom": "1rem",
-                                "marginTop": "2rem"
-                            }
-                        ),
-                        html.P(
-                            _("Volume dos últimos 12 meses com preços e custos vigentes"),
-                            style={
-                                "color": "black",
-                                "fontSize": "0.8rem",
-                                "marginBottom": "10px",
-                            }
-                        ),
-                        dag.AgGrid(
-                            id='table-simulation-catlote',
-                            rowData=table_data.to_dict("records"),
-                            columnDefs=COLUMNS_APPROVAL() if pathname == "/approval" else COLUMNS(),
-                            defaultColDef={
-                                "sortable": True,
-                                "filter": 'agTextColumnFilter',
-                                "filterParams": {
-                                    "buttons": ["apply", "reset"],
-                                    "closeOnApply": True,
-                                },
-                                "resizable": True,
-                                "minWidth": 80,
-                                "autoSize": True,
-                                "suppressSizeToFit": False
-                            },
-                            dashGridOptions={
-                                "pagination": True,
-                                "paginationPageSize": 15,
-                                "enableRangeSelection": True,
-                                "enableFilter": True,
-                                "domLayout": 'autoHeight',
-                                "stopEditingWhenCellsLoseFocus": True,
-                                "enterMovesDown": False,
-                                "enterMovesDownAfterEdit": False,
-                            },
-                            className="ag-theme-alpine",
-                            style={
-                                "height": "calc(100vh - 200px)",
-                                "width": "100%",
-                            }
-                        )
-                    ],
-                    style={"marginTop": "1rem"}
+                dbc.Tooltip(
+                    _("Enviar para aprovação"),
+                    target="button-approval-simulation-catlote",
+                    placement="top",
                 ),
-            ],
-            style={"padding": "20px"}
+            ]),
+        ], style=CONTAINER_BUTTONS_DUAL_STYLE)
+    )
+
+    cards = html.Div(
+        id="cards-catlote-container",
+        children=create_cards(calculate_totals(table_data)),
+        style={"marginBottom": "2rem"}
+    )
+
+    discount_editor = None if pathname == "/approval" else create_discount_editor(catlote_data)
+
+    table = html.Div([
+        html.H3(
+            _("Detalhamento de Produtos"),
+            style={
+                "fontSize": "1.1rem",
+                "fontWeight": "500",
+                "color": "#212529",
+                "marginBottom": "1rem",
+                "marginTop": "2rem"
+            }
+        ),
+        html.P(
+            _("Volume dos últimos 12 meses com preços e custos vigentes"),
+            style={
+                "color": "black",
+                "fontSize": "0.8rem",
+                "marginBottom": "10px",
+            }
+        ),
+        dag.AgGrid(
+            id='table-simulation-catlote',
+            rowData=table_data.to_dict("records"),
+            columnDefs=COLUMNS_APPROVAL() if pathname == "/approval" else COLUMNS(),
+            defaultColDef={
+                "sortable": True,
+                "filter": 'agTextColumnFilter',
+                "filterParams": {
+                    "buttons": ["apply", "reset"],
+                    "closeOnApply": True,
+                },
+                "resizable": True,
+                "minWidth": 80,
+                "autoSize": True,
+                "suppressSizeToFit": False
+            },
+            dashGridOptions={
+                "pagination": True,
+                "paginationPageSize": 15,
+                "enableRangeSelection": True,
+                "enableFilter": True,
+                "domLayout": 'autoHeight',
+                "stopEditingWhenCellsLoseFocus": True,
+                "enterMovesDown": False,
+                "enterMovesDownAfterEdit": False,
+            },
+            className="ag-theme-alpine",
+            style={
+                "height": "calc(100vh - 200px)",
+                "width": "100%",
+            }
         )
-    ]
+    ], id="table-container", style={"marginTop": "1rem"})
+
+    layout_page = html.Div(
+        children=[header, buttons, cards, discount_editor, table],
+        style={"padding": "20px"}
+    )
+
+    return [location, toast, layout_page]
 
 catlote_simulation_page = html.Div([
     modal_confirm_approval,  # Modal de confirmação de aprovação

@@ -3,7 +3,7 @@ import dash_bootstrap_components as dbc
 import dash_ag_grid as dag
 from dash import html, dcc, callback, Input, Output, State, no_update
 from api.api_get_command_center_async import get_all_command_center_data
-from styles import CONTAINER_BUTTONS_STYLE, TABLE_TITLE_STYLE, TABLE_NOTE_PARAGRAPH, CONTAINER_HELPER_BUTTON_STYLE
+from styles import CONTAINER_BUTTONS_STYLE, TABLE_TITLE_STYLE, TABLE_NOTE_PARAGRAPH, CONTAINER_HELPER_BUTTON_STYLE, MAIN_TITLE_STYLE
 from static_data.helper_text import helper_text
 from components.Helper_button_with_modal import create_help_button_with_modal
 from datetime import datetime, timedelta
@@ -182,6 +182,13 @@ def create_table(table_id, data, columns):
         },
     )
 
+helper_button = html.Div(
+    create_help_button_with_modal(
+        modal_title=helper_text["command_center"]["title"],
+        modal_body=helper_text["command_center"]["description"],
+    ), style=CONTAINER_HELPER_BUTTON_STYLE,
+)
+
 # Layout principal
 command_center_page = html.Div(
     id="main-content",
@@ -209,15 +216,10 @@ def update_command_center_content(pathname, language):
     if pathname == "/command-center":
         table_data = get_command_center_data()
         return [
-            html.Div(
-                [
-                    html.Div(className="flexible-spacer"),
-                    create_help_button_with_modal(
-                        modal_title=helper_text["command_center"]["title"],
-                        modal_body=helper_text["command_center"]["description"],
-                    ),
-                ], style=CONTAINER_HELPER_BUTTON_STYLE,
-            ),
+            html.Div([
+                html.H1(_('Command Center'), style=MAIN_TITLE_STYLE),
+                helper_button
+            ], className="container-title"),
             html.Div(
                 [html.Div(
                     dbc.Card(

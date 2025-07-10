@@ -10,7 +10,8 @@ from utils.handle_data import handle_data
 from static_data.helper_text import helper_text
 from components.Helper_button_with_modal import create_help_button_with_modal
 from utils.user_has_permission_to_edit import user_has_permission_to_edit
-from styles import CONTAINER_CARD_STYLE, CONTAINER_BUTTONS_STYLE, CAPTAIN_CARD_INSIDE_STYLE, HELPER_MESSAGE, TABLE_TITLE_STYLE, CONTAINER_HELPER_BUTTON_STYLE
+from utils.handle_no_data_to_show import handle_no_data_to_show
+from styles import CONTAINER_CARD_STYLE, CONTAINER_BUTTONS_STYLE, CAPTAIN_CARD_INSIDE_STYLE, HELPER_MESSAGE, TABLE_TITLE_STYLE, CONTAINER_HELPER_BUTTON_STYLE, MAIN_TITLE_STYLE
 from translations import _, setup_translations
 
 def columns():
@@ -38,13 +39,21 @@ def get_captain_data(cpc):
     table_variables = get_initial_data_configs("captain_variables").to_dict("records")[0]
     return row_data, table_variables
 
+helper_button = html.Div(
+    create_help_button_with_modal(
+        modal_title=helper_text["captain"]["title"],
+        modal_body=helper_text["captain"]["description"],
+    ), style=CONTAINER_HELPER_BUTTON_STYLE,
+)
+
+
 def get_layout(pathname, user_data):
     
     cpc = user_data.get('cpc1_3_6_list')
     row_data, table_variables = get_captain_data(cpc)
     formated_data = handle_data(row_data, decimal_places=2, date_format='%m-%d-%y')
 
-    table = dag.AgGrid(
+    table = handle_no_data_to_show(row_data.get("error")) if row_data.get("error") else dag.AgGrid(
         id='table-captain',
         rowData=formated_data.to_dict("records"),
         columnDefs=columns(),
@@ -62,42 +71,38 @@ def get_layout(pathname, user_data):
         style={'height': '500px'},
     )
 
-    return [
-        html.Div(
-            [
-                html.Div(className="flexible-spacer"),  # Espaçador flexível
-                create_help_button_with_modal(
-                    modal_title=helper_text["captain"]["title"],
-                    modal_body=helper_text["captain"]["description"],
-                ),
-            ], style=CONTAINER_HELPER_BUTTON_STYLE,
-        ),
-        html.Div(
-            children=[
-                dbc.Button(
-                    [
-                        _("Simulação"),  
-                        dbc.Spinner(
-                            size="sm",
-                            color="light",
-                            id="button-simulate-captain-spinner",
-                            spinner_style={"display": "none"},
-                        ),
-                    ],
-                    id="button-simulate-captain",
-                    color="success",
-                    disabled=False if user_has_permission_to_edit(pathname, user_data) else True,
-                    n_clicks=0
-                ),
-                dbc.Tooltip(
-                    _("Simular Capitão"),
-                    target="button-simulate-captain",
-                    placement="top",
-                ),
-            ],
-            style=CONTAINER_BUTTONS_STYLE,
-        ),
-        html.Div(
+    header = html.Div([
+            html.H1(_('Capitão'), style=MAIN_TITLE_STYLE),
+            helper_button
+        ], className="container-title")
+
+    action_buttons = html.Div(
+        [
+            dbc.Button(
+                [
+                    _("Simulação"),  
+                    dbc.Spinner(
+                        size="sm",
+                        color="light",
+                        id="button-simulate-captain-spinner",
+                        spinner_style={"display": "none"},
+                    ),
+                ],
+                id="button-simulate-captain",
+                color="success",
+                disabled=False if user_has_permission_to_edit(pathname, user_data) else True,
+                n_clicks=0
+            ),
+            dbc.Tooltip(
+                _("Simular Capitão"),
+                target="button-simulate-captain",
+                placement="top",
+            ),
+        ],
+        style=CONTAINER_BUTTONS_STYLE,
+    )
+
+    total_cards = html.Div(
             [
                 Card(
                     title=_("Repres. Faturamento"),
@@ -137,21 +142,30 @@ def get_layout(pathname, user_data):
                 ),
             ],
             style=CONTAINER_CARD_STYLE,
-        ),
-        html.Div(
-            id="variable-helper-message",
-            style=HELPER_MESSAGE,
-        ),
-        html.Div(
-            [
-                html.H2(
-                    _("Situação atual dos capitão"),
-                    style=TABLE_TITLE_STYLE
-                ),
-                table,
-            ]
-        ),
-    ]
+        )
+
+    helper_message = html.Div(
+        id="variable-helper-message",
+        style=HELPER_MESSAGE,
+    )
+
+    container_table = html.Div(
+        [
+            html.H2(
+                _("Situação atual dos capitão"),
+                style=TABLE_TITLE_STYLE
+            ),
+            table,
+        ]
+    )
+
+    return [
+        header,
+        action_buttons,
+        total_cards,
+        helper_message,
+        container_table,
+    ]       
 
 captain_page = html.Div([
     dbc.Spinner(

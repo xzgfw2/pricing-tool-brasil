@@ -5,6 +5,7 @@ import polars as pl
 from dash import Input, Output, callback, State, html, ctx, no_update, dcc
 from components.Card import Card
 from components.Toast import Toast
+from components.Modal import create_modal
 from pages.approvals.approval_utils import container_approval_reject_buttons
 from api.get_requests_for_approval import get_requests_for_approval
 from api.api_get_captain_simulation import get_captain_simulation
@@ -13,9 +14,10 @@ from api.update_approval_status import update_approval_status
 from utils.handle_data import handle_data
 from utils.deserialize_json import deserialize_json
 from utils.handle_nothing_to_approve import handle_nothing_to_approve
+from utils.handle_no_data_to_show import handle_no_data_to_show
 from static_data.helper_text import helper_text
 from components.Helper_button_with_modal import create_help_button_with_modal
-from styles import CONTAINER_BUTTONS_DUAL_STYLE, CONTAINER_CARD_STYLE, HELPER_MESSAGE, CAPTAIN_CARD_INSIDE_STYLE, CONTAINER_HELPER_BUTTON_STYLE
+from styles import CONTAINER_BUTTONS_DUAL_STYLE, CONTAINER_CARD_STYLE, HELPER_MESSAGE, CAPTAIN_CARD_INSIDE_STYLE, CONTAINER_HELPER_BUTTON_STYLE, MAIN_TITLE_STYLE
 from translations import _, setup_translations
 
 def columns(): 
@@ -79,12 +81,20 @@ def get_simulation_data():
     table_data["novo_capitao"] = None
     return table_data
 
+helper_button = html.Div(
+    create_help_button_with_modal(
+        modal_title=helper_text["captain_simulation"]["title"],
+        modal_body=helper_text["captain_simulation"]["description"],
+    ), style=CONTAINER_HELPER_BUTTON_STYLE,
+)
+
+
 def get_layout(pathname):
 
     table_data = get_requests_for_approval(table="captain") if pathname == "/approval" else get_simulation_data()
     formated_data = handle_data(table_data, decimal_places=2, date_format='%m-%d-%y')
 
-    table = dag.AgGrid(
+    table = handle_no_data_to_show(table_data.get("error")) if table_data.get("error") else dag.AgGrid(
         id='table-simulation-captain',
         rowData=formated_data.to_dict("records") if formated_data is not None else [],
         columnDefs=columns_approval() if pathname == "/approval" else columns(),
@@ -111,13 +121,9 @@ def get_layout(pathname):
         Toast(id="toast-approval-captain-simulation"),
         None if pathname == "/approval" else html.Div(
             [
-                html.Div(className="flexible-spacer"),
-                create_help_button_with_modal(
-                    modal_title=helper_text["captain_simulation"]["title"],
-                    modal_body=helper_text["captain_simulation"]["description"],
-                ),
-            ], style=CONTAINER_HELPER_BUTTON_STYLE,
-        ),
+                html.H1(_('Simulação do Capitão'), style=MAIN_TITLE_STYLE),
+                helper_button
+            ], className="container-title"),
         container_approval_reject_buttons(table="captain") if pathname == "/approval" else html.Div(
             [
                 dbc.Button(
@@ -166,19 +172,31 @@ def get_layout(pathname):
         html.Div(table),
     ]
 
+modal_confirm_approval = create_modal(
+    modal_id="modal-confirm-approval-captain",
+    modal_title="Solicitar Aprovação",
+    modal_body=html.P("Tem certeza que deseja enviar para aprovação?"),
+    modal_footer=html.Div([
+        dbc.Button("Não", id="btn-cancel-approval", color="secondary", className="me-2"),
+        dbc.Button("Sim", id="btn-confirm-approval", color="success")
+    ]),
+    is_open=False
+)
+
 captain_simulation_page = html.Div([
     dbc.Spinner(
         html.Div(id="captain-simulation-content"),
         color="primary",
         size="lg",
         fullscreen=True,
-    )
+    ),
+    modal_confirm_approval,
 ])
 
 @callback(
     Output("captain-simulation-content", "children"),
     Input("url", "pathname"),
-    State("store-token", "data"),
+    Input("store-token", "data"),
     Input("store-language", "data"),
 )
 def update_simulation_content(pathname, user_data, language):
@@ -292,16 +310,37 @@ def validate_new_captain(cellValueChanged, rowData):
     # return error_message, no_update
     return error_message, disable_button_approval
 
+
+# Callback para abrir o modal de confirmação de aprovação
+@callback(
+    Output("modal-confirm-approval-captain", "is_open"),
+    Input("button-approval-captain", "n_clicks"),
+    prevent_initial_call=True,
+)
+def open_confirm_approval_modal(n_clicks):
+    if n_clicks:
+        return True
+    return False
+
+
 # Callback para enviar os dados da tabela para aprovacao
 @callback(
-    Output("toast-approval-captain", "is_open"),
-    Input("button-approval-captain", "n_clicks"),
-    Input("table-simulation-captain", "rowData"),
+    Output("modal-confirm-approval-captain", "is_open", allow_duplicate=True),
+    Output("toast-approval-captain", "is_open", allow_duplicate=True),
+    Input("btn-confirm-approval", "n_clicks"),
+    Input("btn-cancel-approval", "n_clicks"),
+    State("table-simulation-captain", "rowData"),
     State("store-token", "data"),
-    prevent_initial_call=True
+    prevent_initial_call=True,
 )
-def sent_simulation_to_approval(n_clicks, table_data, user_data):
-    if n_clicks > 0:
+def handle_send_approval(confirm_clicks, cancel_clicks, table_data, user_data):
+    triggered_id = ctx.triggered_id
+
+    # Se for cancelamento, não abre o toast
+    if triggered_id == "btn-cancel-approval" and cancel_clicks:
+        return False, False
+
+    if triggered_id == "btn-confirm-approval" and confirm_clicks:
 
         filtered_col_table_data = [{
             "part_number": row["part_number"],
@@ -326,8 +365,8 @@ def sent_simulation_to_approval(n_clicks, table_data, user_data):
 
         send_to_approval("captain", variables_to_send)
 
-        return True
-    return False
+        return False, True
+    return False, False
 
 # Callback para aprovação/rejeição
 @callback(

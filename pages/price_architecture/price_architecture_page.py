@@ -20,6 +20,7 @@ from styles import (
     DROPDOWN_STYLE,
     TABLE_TITLE_STYLE,
     CONTAINER_HELPER_BUTTON_STYLE,
+    MAIN_TITLE_STYLE,
 )
 from translations import _, setup_translations
 
@@ -77,14 +78,7 @@ def create_category_card(category_id, category_name):
                 category_name,
                 id=f"btn-collapse-{category_id}",
                 color="primary",
-                style={
-                    "width": "100%", 
-                    "backgroundColor": "transparent", 
-                    "color": "black",
-                    "display": "flex",
-                    "justify-content": "center"
-                },
-                #className="category-button",
+                className="category-button",
                 n_clicks=0,
             )
         ),
@@ -125,45 +119,59 @@ modal = create_modal(
     modal_footer=modal_footer,
 )
 
+helper_button = html.Div(
+    create_help_button_with_modal(
+        modal_title=helper_text["price"]["title"],
+        modal_body=helper_text["price"]["description"],
+    ), style=CONTAINER_HELPER_BUTTON_STYLE,
+)
+
 def get_layout(pathname, user_data):
-    return [
+    
+    header = html.Div([
+        html.H1(_('Arquitetura de Preços'), style=MAIN_TITLE_STYLE),
+        helper_button
+    ], className="container-title")
+
+    action_buttons = dbc.Row([
+        dbc.Col([
+            dbc.ButtonGroup([
+                dbc.Button(_("Expandir Todos"), id="btn-expand-all", color="primary", outline=True),
+                dbc.Button(_("Colapsar Todos"), id="btn-collapse-all", color="primary", outline=True),
+                dbc.Button(
+                    _("Simulação"),
+                    id="button-simulation",
+                    color="success",
+                    disabled=not user_has_permission_to_edit(pathname, user_data),
+                ),
+            ], className="mb-3")
+        ])
+    ])
+
+
+    category_cards = dbc.Row([
+        dbc.Col([
+            html.Div([
+                create_category_card(cat_id, cat_name)
+                for cat_id, cat_name in VARIABLES_CATEGORIES.items()
+            ])
+        ])
+    ])
+
+    location_and_stores = [
         dcc.Location(id="url-simulation", refresh=True),
         dcc.Store(id='stored-variables', storage_type="session"),
-        dcc.Store(id='stored-category-states', storage_type="session"),
-        html.Div(
-            [
-                html.Div(className="flexible-spacer"),
-                create_help_button_with_modal(
-                    modal_title=helper_text["price"]["title"],
-                    modal_body=helper_text["price"]["description"],
-                ),
-            ], style=CONTAINER_HELPER_BUTTON_STYLE,
-        ),
-        # Botões de ação
-        dbc.Row([
-            dbc.Col([
-                dbc.ButtonGroup([
-                    dbc.Button(_("Expandir Todos"), id="btn-expand-all", color="primary", outline=True),
-                    dbc.Button(_("Colapsar Todos"), id="btn-collapse-all", color="primary", outline=True),
-                    dbc.Button(
-                        _("Simulação"), 
-                        id="button-simulation",
-                        color="success",
-                        disabled=False if user_has_permission_to_edit(pathname, user_data) else True,
-                    ),
-                ], className="mb-3")
-            ])
-        ]),
-        dbc.Row([
-            dbc.Col([
-                html.Div([
-                    create_category_card(cat_id, cat_name)
-                    for cat_id, cat_name in VARIABLES_CATEGORIES.items()
-                ])
-            ])
-        ]),
+        dcc.Store(id='stored-category-states', storage_type="session")
+    ]
+
+    # Return final do layout
+    return location_and_stores + [
+        header,
+        action_buttons,
+        category_cards,
         modal
     ]
+
 
 price_architecture_page = html.Div([
     dbc.Spinner(

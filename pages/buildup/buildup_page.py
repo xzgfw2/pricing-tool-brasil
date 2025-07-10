@@ -13,6 +13,7 @@ from api.update_approval_status import update_approval_status
 from api.send_to_approval import send_to_approval
 from copy import deepcopy
 from components.Input import create_input
+from components.Modal import create_modal
 from components.Helper_button_with_modal import create_help_button_with_modal
 from components.Toast import Toast
 from static_data.constants import VARIABLES_QUARTER
@@ -20,7 +21,7 @@ from static_data.helper_text import helper_text
 from utils.modify_column_if_other_column_changed import modify_column_if_other_column_changed
 from utils.user_has_permission_to_edit import user_has_permission_to_edit
 from utils.handle_nothing_to_approve import handle_nothing_to_approve
-from styles import BUTTON_STYLE, CONTAINER_BUTTONS_DUAL_STYLE, CONTAINER_TABLE_BUILD_UP_STYLE, DROPDOWN_STYLE, CONTAINER_HELPER_BUTTON_STYLE
+from styles import BUTTON_STYLE, CONTAINER_BUTTONS_DUAL_STYLE, CONTAINER_TABLE_BUILD_UP_STYLE, DROPDOWN_STYLE, CONTAINER_HELPER_BUTTON_STYLE, MAIN_TITLE_STYLE
 from translations import _, setup_translations
 from .buildup_style import *  # Temporariamente usando import * para focar nos dados
 
@@ -189,13 +190,10 @@ def container_input_quarter_year(pathname):
 ], className="d-none" if pathname == "/approval" else "" )
 
 helper_button = html.Div(
-    [
-        html.Div(className="flexible-spacer"),
-        create_help_button_with_modal(
-            modal_title=helper_text["buildup"]["title"],
-            modal_body=helper_text["buildup"]["description"],
-        ),
-    ], style=CONTAINER_HELPER_BUTTON_STYLE,
+    create_help_button_with_modal(
+        modal_title=helper_text["buildup"]["title"],
+        modal_body=helper_text["buildup"]["description"],
+    ), style=CONTAINER_HELPER_BUTTON_STYLE,
 )
 
 def approval_button():
@@ -313,54 +311,80 @@ def get_buildup_value(factor_name, df_buildup, buildup_code, default=0.0):
 #     return rows
 
 def get_layout(pathname, user_data):
-
-    table_data = None
-
+    
     if pathname == "/approval":
         table_data = handle_raw_dataframe(get_requests_for_approval(table="buildup"))
     else:
         table_data = handle_raw_dataframe(get_initial_data_configs(process_name="buildup"))
 
-    buildups_type_data = table_data.columns[1:] if table_data is not None else []
+    if table_data is None:
+        return handle_nothing_to_approve()
 
-    return handle_nothing_to_approve() if table_data is None else html.Div(
-        children=[
-            html.Div(
+    buildups_type_data = table_data.columns[1:]
+    header = None
+    if pathname != "/approval":
+        header = html.Div([
+            html.H1(_('Build Up'), style=MAIN_TITLE_STYLE),
+            helper_button
+        ], className="container-title")
+
+    input_container = html.Div([
+        container_input_quarter_year(pathname),
+        None if pathname == "/approval" else approval_button(),
+    ], className="input-header")
+
+    date_section = html.Div(
+        [header, input_container],
+        style=STYLE_DATE_CONTAINER
+    )
+
+    approval_controls = (
+        container_approval_reject_buttons(table="buildup")
+        if pathname == "/approval"
+        else None
+    )
+
+    toast_approval = Toast(
+        id="toast-approval-buildup",
+        header=_("Aprovação"),
+        toast_message=_("Enviado para aprovação"),
+    )
+
+    toast_reject = Toast(id="toast-approval-reject-buildup")
+
+    table_or_tabs = (
+        create_buildup_factors_table(pathname, user_data, table_data)
+        if pathname == "/approval"
+        else html.Div(
+            dbc.Tabs(
+                [dbc.Tab(
+                    create_buildup_factors_table(pathname, user_data, table_data),
+                    label=_("Fatores")
+                )] +
                 [
-                    None if pathname == "/approval" else helper_button,
-                    html.Div([
-                        container_input_quarter_year(pathname),
-                        None if pathname == "/approval" else approval_button(),
-                    ],
-                        className="input-header"
-                    ),
+                    dbc.Tab(
+                        tab_content(tab_config["id"], buildups_type_data, _),
+                        label=tab_config["label"]
+                    )
+                    for tab_config in tab_configs()
                 ],
-                style=STYLE_DATE_CONTAINER,
+                style=STYLE_TABS
             ),
-            container_approval_reject_buttons(table="buildup") if pathname == "/approval" else None,
-            Toast(id="toast-approval-buildup"),
-            create_buildup_factors_table(pathname, user_data, table_data) if pathname == "/approval" else html.Div(
-                dbc.Tabs(
-                    [
-                        dbc.Tab(
-                            create_buildup_factors_table(pathname, user_data, table_data),
-                            label=_("Fatores")
-                        ),
-                    ] + 
-                    [
-                        dbc.Tab(
-                            tab_content(tab_config["id"], buildups_type_data, _),
-                            label=tab_config["label"]
-                        )
-                        for tab_config in tab_configs()
-                    ],
-                    style=STYLE_TABS
-                ),
-                style=STYLE_TABS_CONTAINER
-            ),
+            style=STYLE_TABS_CONTAINER
+        )
+    )
+
+    return html.Div(
+        children=[
+            date_section,
+            approval_controls,
+            toast_approval,
+            toast_reject,
+            table_or_tabs,
         ],
         style=STYLE_PAGE_CONTAINER
     )
+
 
 error_modal = dbc.Modal(
     [
@@ -374,6 +398,17 @@ error_modal = dbc.Modal(
     centered=True,
 )
 
+modal_confirm_approval = create_modal(
+    modal_id="modal-confirm-approval-buildup",
+    modal_title="Solicitar Aprovação",
+    modal_body=html.P("Tem certeza que deseja enviar para aprovação?"),
+    modal_footer=html.Div([
+        dbc.Button("Não", id="btn-cancel-approval", color="secondary", className="me-2"),
+        dbc.Button("Sim", id="btn-confirm-approval", color="success")
+        ]),
+    is_open=False
+)
+
 buildup_page = html.Div([
     dbc.Spinner(
         html.Div(id="buildup-content"),
@@ -381,7 +416,8 @@ buildup_page = html.Div([
     ),
     dcc.Store(id="previous-quarter", data=None),
     dcc.Store(id="previous-year", data=None),
-    error_modal
+    error_modal,
+    modal_confirm_approval,
 ])
 
 # Callback para lidar com a renderizaçao da pagina
@@ -795,18 +831,17 @@ def validate_quarter_year(quarter, year, close_clicks, prev_quarter, prev_year):
     # Atualiza os valores anteriores válidos
     return False, "", quarter, year, quarter, year
 
-# Callback para atualizar a tabela, habilitar botão de aprovação e envio dos dados para o back-end
+# Callback para atualizar a tabela e habilitar botão de aprovação
 @callback(
-    Output('button-approval-buildup', 'disabled'),
+    Output('button-approval-buildup', 'disabled'),        # Habilita/desabilita o botão
+    Output('table-buildup-factors', 'rowData', allow_duplicate=True),           # Atualiza os dados da tabela
     Input('table-buildup-factors', 'cellValueChanged'),
-    Input('button-approval-buildup', 'n_clicks'),
     Input("input-quarter", "value"),
     Input("input-year", "value"),
     Input('table-buildup-factors', 'rowData'),
-    State("store-token", "data"),
     prevent_initial_call=True,
 )
-def update_cell_value(cellValueChanged, n_clicks, quarter, year, table_data, user_data):
+def update_cell_value(cellValueChanged, quarter, year, table_data):
     if cellValueChanged:
         # Atualiza a coluna 'manual' para todas as linhas onde houve alteração
 
@@ -817,33 +852,64 @@ def update_cell_value(cellValueChanged, n_clicks, quarter, year, table_data, use
             value_to_input="1"
         )
 
-        if n_clicks > 0:
-            df = pl.DataFrame(updated_row_data)
+        return False, updated_row_data 
+    return True, no_update
 
-            new_table = merge_with_original_data(reverse_raw_dataframe(df))
-            new_table = new_table.select([col for col in new_table.columns if col != "manual"])
+# Callback para abrir o modal de confirmação de aprovação
+@callback(
+    Output("modal-confirm-approval-buildup", "is_open"),
+    Input("button-approval-buildup", "n_clicks"),
+    prevent_initial_call=True,
+)
+def open_confirm_approval_modal(n_clicks):
+    if n_clicks:
+        return True
+    return False
 
-            # Garantir que year seja string antes de adicionar à tabela
-            new_table = new_table.with_columns([
-                pl.col("year").cast(pl.Utf8),
-                pl.col("quarter").cast(pl.Utf8)
-            ])
+# Callback para processar a confirmação de aprovação
+@callback(
+    Output("modal-confirm-approval-buildup", "is_open", allow_duplicate=True),
+    Output("toast-approval-buildup", "is_open", allow_duplicate=True),
+    Input("btn-confirm-approval","n_clicks"),
+    Input("btn-cancel-approval","n_clicks"),
+    State("table-buildup-factors", "rowData"),
+    State("store-token", "data"),
+    prevent_initial_call=True,
+)
+def handle_send_approval(confirm_clicks, cancel_clicks, table_data, user_data):
+    triggered_id = ctx.triggered_id
+    
+    if triggered_id == "btn-cancel-approval" and cancel_clicks:
+        return False, False
 
-            variables_to_send = {
-                'user_token': user_data["access_token"],
-                'table_data': new_table.to_pandas().to_dict('records'),
-            }
+    if triggered_id == "btn-confirm-approval" and confirm_clicks:
+            
+        df = pl.DataFrame(table_data)
 
-            send_to_approval(notebook_name="buildup", data_variables=variables_to_send)
+        new_table = merge_with_original_data(reverse_raw_dataframe(df))
+        new_table = new_table.select([col for col in new_table.columns if col != "manual"])
 
-        return False
-    return no_update, no_update
+        # Garantir que year seja string antes de adicionar à tabela
+        new_table = new_table.with_columns([
+            pl.col("year").cast(pl.Utf8),
+            pl.col("quarter").cast(pl.Utf8)
+        ])
+
+        variables_to_send = {
+            'user_token': user_data["access_token"],
+            'table_data': new_table.to_pandas().to_dict('records'),
+        }
+
+        send_to_approval(notebook_name="buildup", data_variables=variables_to_send)
+
+        return False, True
+    return False, False
 
 # Callback para aprovação/rejeição
 @callback(
-    Output("toast-approval-buildup", "is_open"),
-    Output("toast-approval-buildup", "header"),
-    Output("toast-approval-buildup", "children"),
+    Output("toast-approval-reject-buildup", "is_open"),
+    Output("toast-approval-reject-buildup", "header"),
+    Output("toast-approval-reject-buildup", "children"),
     Input("button-approval-accept-buildup", "n_clicks"),
     Input("button-approval-reject-buildup", "n_clicks"),
     State("table-buildup-factors", "rowData"),

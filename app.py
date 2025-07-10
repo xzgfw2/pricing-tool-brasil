@@ -1,5 +1,3 @@
-#Pagina Pricing tool atualizada dia 01/07
-
 import os
 import dash
 import dash_bootstrap_components as dbc
@@ -48,88 +46,37 @@ content = html.Div(
     style=MAIN_CONTENT_STYLE
 )
 
-login_content = html.Div(login_page)
-
-command_center_content = html.Div([
-    html.H1(_("Command Center"), style=MAIN_TITLE_STYLE),
-    html.Div(command_center_page)
-])
-
-price_content = html.Div([
-    html.H1(_("Arquitetura de Preço"), style=MAIN_TITLE_STYLE),
-    html.Div(price_architecture_page)
-])
-
-simulation_content = html.Div([
-    html.H1(_("Simulação do Resultado"), style=MAIN_TITLE_STYLE),
-    html.Div(price_sim_architecture_page)
-])
-
-optimization_content = html.Div(optimization_page)
-
-catlote_content = html.Div([
-    html.H1(_("CatLote Desconto"), style=MAIN_TITLE_STYLE),
-    html.Div(catlote_page)
-])
-
-catlote_simulation_content = html.Div([
-    html.H1(_("Simulação - CatLote"), style=MAIN_TITLE_STYLE),
-    html.Div(catlote_simulation_page)
-])
-
-approval_content= html.Div(approval_page)
-
-approval_requests_content = html.Div(approval_requests_page)
-
-captain_content = html.Div([
-    html.H1(_("Capitão"), style=MAIN_TITLE_STYLE),
-    html.Div(captain_page)
-])
-
-captain_simulation_content = html.Div([
-    html.H1(_("Simulação do Capitão"), style=MAIN_TITLE_STYLE),
-    html.Div(captain_simulation_page)
-])
-
-strategy_content = html.Div([
-    html.H1(_("Estratégia Comercial"), style=MAIN_TITLE_STYLE),
-    html.Div(strategy_page)
-])
-
-marketing_content = html.Div([
-    html.H1(_("Posicionamento de Mercado"), style=MAIN_TITLE_STYLE),
-    html.Div(marketing_page)
-])
-
-captain_margin_content = html.Div([
-    html.H1(_("Margem do Capitão"), style=MAIN_TITLE_STYLE),
-    html.Div(captain_margin_page)
-])
-
-delta_content = html.Div([
-    html.H1(_("Delta Preço"), style=MAIN_TITLE_STYLE),
-    html.Div(delta_page)
-])
-
-buildup_content = html.Div([
-    html.H1(_("Build Up"), style=MAIN_TITLE_STYLE),
-    html.Div(buildup_page)
-])
+approval_content = approval_page
+approval_requests_content = approval_requests_page
+buildup_content = buildup_page
+captain_content = captain_page
+captain_margin_content = captain_margin_page
+captain_simulation_content = captain_simulation_page
+catlote_content = catlote_page
+catlote_simulation_content = catlote_simulation_page
+delta_content = delta_page
+command_center_content = command_center_page
+login_content = login_page
+marketing_content = marketing_page
+optimization_content = optimization_page
+price_content = price_architecture_page
+simulation_content = price_sim_architecture_page
+strategy_content = strategy_page
 
 PUBLIC_ROUTES = {
-    "/command-center": command_center_content,
-    "/price": price_content,
-    "/price-simulation": simulation_content,
-    "/optimization": optimization_content,
+    "/buildup": buildup_content,
+    "/captain": captain_content,
+    "/captain-margin": captain_margin_content,
+    "/captain-simulation": captain_simulation_content,
     "/catlote": catlote_content,
     "/catlote-simulation": catlote_simulation_content,
-    "/captain": captain_content,
-    "/captain-simulation": captain_simulation_content,
-    "/strategy": strategy_content,
-    "/marketing": marketing_content,
-    "/captain-margin": captain_margin_content,
+    "/command-center": command_center_content,
     "/delta": delta_content,
-    "/buildup": buildup_content,
+    "/marketing": marketing_content,
+    "/optimization": optimization_content,
+    "/price": price_content,
+    "/price-simulation": simulation_content,
+    "/strategy": strategy_content,
 }
 
 def router(role):
@@ -195,4 +142,4 @@ def render_page_content(pathname, user):
     ], style=MAIN_CONTAINER_STYLE)
 
 if __name__ == "__main__":
-    app.run(debug=ENVIRONMENT == "prod")
+    app.run(debug=ENVIRONMENT == "dev")

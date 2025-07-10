@@ -177,7 +177,7 @@ def create_buttons(_):
                         _("Detalhes"),
                         id="button-details",
                         color="success",
-                        href="https://app.powerbi.com/reportEmbed?reportId=f1ed294c-33b6-4f5f-9090-7e95d46eccd3&autoAuth=true&ctid=5de110f8-2e0f-4d45-891d-bcf2218e253d",
+                        href="https://app.powerbi.com/groups/3bad649e-c2a9-4609-b993-b4187212586e/reports/f1ed294c-33b6-4f5f-9090-7e95d46eccd3/e84520c2176fca2421f9?experience=power-bi",
                         external_link=True,
                         target="_blank",
                         n_clicks=0
@@ -259,42 +259,59 @@ def create_cards(df):
         ], className="g-0 mb-3"),
     ], className="card-container")
 
-def get_layout(pathname):
+helper_button = html.Div(
+    create_help_button_with_modal(
+        modal_title=helper_text["price_simulation"]["title"],
+        modal_body=helper_text["price_simulation"]["description"],
+    ), style=CONTAINER_HELPER_BUTTON_STYLE,
+)
 
+def get_layout(pathname):
     table_data = get_requests_for_approval(table="price") if pathname == "/approval" else get_last_sim_user()
 
-    return handle_nothing_to_approve() if table_data is None else [
-        dcc.Store(id='stored-simulation-results', storage_type="session"),
-        None if pathname == "/approval" else html.Div(
-            [
-                html.Div(className="flexible-spacer"),
-                create_help_button_with_modal(
-                    modal_title=helper_text["price_simulation"]["title"],
-                    modal_body=helper_text["price_simulation"]["description"],
-                ),
-            ], style=CONTAINER_HELPER_BUTTON_STYLE,
-        ),
-        container_approval_reject_buttons(table="price") if pathname == "/approval" else create_buttons(_),
+    if table_data is None:
+        return handle_nothing_to_approve()
+
+    simulation_store = dcc.Store(id='stored-simulation-results', storage_type="session")
+
+    header = None
+    if pathname != "/approval":
+        header = html.Div([
+            html.H1(_('Simulação do Resultado'), style=MAIN_TITLE_STYLE),
+            helper_button
+        ], className="container-title")
+
+    action_buttons = container_approval_reject_buttons(table="price") if pathname == "/approval" else create_buttons(_)
+
+    cards = html.Div(
+        children=create_cards(table_data),
+        id="cards-container",
+        style=CONTAINER_CARD_STYLE
+    )
+
+    toast_approval = Toast(id="toast-approval-price")
+
+    container_table = dbc.Spinner(
         html.Div(
-            children=create_cards(table_data),
-            id="cards-container",
-            style=CONTAINER_CARD_STYLE
-        ),
-        Toast(
-            id="toast-approval-price",
-        ),
-        dbc.Spinner(
             html.Div(
-                html.Div(
-                    create_price_simulation_table(table_data, pathname)
-                ),
-                style=CONTAINER_TABLE_STYLE
+                create_price_simulation_table(table_data, pathname)
             ),
-            size="md",
-            color="primary",
-            fullscreen=False,
+            style=CONTAINER_TABLE_STYLE
         ),
+        size="md",
+        color="primary",
+        fullscreen=False,
+    )
+
+    return [
+        simulation_store,
+        header,
+        action_buttons,
+        cards,
+        toast_approval,
+        container_table
     ]
+
 
 price_sim_architecture_page = html.Div([
     modal_confirm_approval,  # Modal de confirmação de aprovação
@@ -374,7 +391,7 @@ def handle_all_modal_and_approval(open_clicks, confirm_clicks, cancel_clicks,
         return no_update, True, False, "", ""
     
     # Cancelar
-    if triggered_id == "btn-cancel-approval":
+    if triggered_id == "btn-cancel-approval" and cancel_clicks:
         return no_update, False, False, "", ""
     
     # Confirmar envio para aprovação

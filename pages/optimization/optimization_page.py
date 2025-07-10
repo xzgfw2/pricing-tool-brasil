@@ -31,6 +31,7 @@ def create_columns(pathname, user_data):
         {"headerName": _("Peça"), "field": "peca", "width": 80, "pinned": "left"},
         {"headerName": _("Descrição"), "field": "descricao", "width": 250, "pinned": "left"},
         {"headerName": _("Status"), "field": "status", "width": 180, "pinned": "left"},
+        {"headerName": _("Catlote"), "field": "catlote", "width": 180, "pinned": "left"},
         {"headerName": _("CPC 1 3 6"), "field": "cpc1_3_6", "width": 220, "pinned": "left"},
         {"headerName": _("Marca"), "field": "var_marca", "width": 80, "pinned": "left"},
         {"headerName": _("Preço Tabela"), "children": [
@@ -437,62 +438,87 @@ def get_layout(pathname, user_data):
     cpc = user_data.get('cpc1_3_6_list')
     table_data = get_requests_for_approval(table="optimization") if pathname == "/approval" else get_optimization(cpc)
     table_data = table_data if pathname == "/approval" else handle_new_alteration(table_data)
-    none_table = None
 
-    return handle_nothing_to_approve() if table_data is None else html.Div([
-        none_table if table_data is None else html.Div([
-            None if pathname == "/approval" else html.Div([
-                html.H1(_("Otimização de Preços"), style=MAIN_TITLE_STYLE),
-                helper_button
-            ], className="container-title"),
-            Toast(id="toast-approval-optimization"),
-            container_approval_reject_buttons(table="optimization") if pathname == "/approval" else action_buttons(_, pathname, user_data),
-            html.Div([
-                html.Div(
-                    id="optimization-cards",
-                    children=create_cards(table_data, _),
-                    className="configs-space-cards"
-                ),
-                html.Div([
-                    html.P(
-                        _("Volume dos últimos 12 meses com preços e custos vigentes"),
-                        className="description-message"
-                    ),
-                    dag.AgGrid(
-                        id='optimization-table',
-                        rowData=table_data.to_dict("records") if pathname == "/approval" else table_data.to_dicts(),
-                        columnDefs=columns_approval() if pathname == "/approval" else create_columns(pathname, user_data),
-                        defaultColDef={
-                            "sortable": True,
-                            "filter": 'agTextColumnFilter',
-                            "filterParams": {
-                                "buttons": ["apply", "reset"],
-                                "closeOnApply": True,
-                            },
-                            "resizable": True,
-                            "minWidth": 120,
-                        },
-                        dashGridOptions={
-                            "pagination": True,
-                            "paginationPageSize": 20,
-                            "enableRangeSelection": True,
-                            "enableFilter": True,
-                            "domLayout": 'autoHeight',
-                            "stopEditingWhenCellsLoseFocus": True,
-                            "enterMovesDown": False,
-                            "enterMovesDownAfterEdit": False,
-                        },
-                        className="ag-theme-alpine",
-                        style={
-                            "height": "calc(100vh - 200px)",
-                            "width": "100%",
-                        }
-                    )
-                ], className="table-container")
-                ], className="page-content"
-            )
-        ])
+    if table_data is None:
+        return handle_nothing_to_approve()
+
+    header = None
+    if pathname != "/approval":
+        header = html.Div([
+            html.H1(_("Otimização de Preços"), style=MAIN_TITLE_STYLE),
+            helper_button
+        ], className="container-title")
+
+    toast_approve = Toast(
+        id="toast-approval-optimization",
+        header=_("Aprovação"),
+        toast_message=_("Enviado para aprovação"),
+    )
+
+    toast_reject = Toast(id="toast-approval-reject-optimization")
+
+    buttons = (
+        container_approval_reject_buttons(table="optimization")
+        if pathname == "/approval"
+        else action_buttons(_, pathname, user_data)
+    )
+
+    cards = html.Div(
+        id="optimization-cards",
+        children=create_cards(table_data, _),
+        className="configs-space-cards"
+    )
+
+    table_container = html.Div([
+        html.P(
+            _("Volume dos últimos 12 meses com preços e custos vigentes"),
+            className="description-message"
+        ),
+        dag.AgGrid(
+            id='optimization-table',
+            rowData=table_data.to_dict("records") if pathname == "/approval" else table_data.to_dicts(),
+            columnDefs=columns_approval() if pathname == "/approval" else create_columns(pathname, user_data),
+            defaultColDef={
+                "sortable": True,
+                "filter": 'agTextColumnFilter',
+                "filterParams": {
+                    "buttons": ["apply", "reset"],
+                    "closeOnApply": True,
+                },
+                "resizable": True,
+                "minWidth": 120,
+            },
+            dashGridOptions={
+                "pagination": True,
+                "paginationPageSize": 20,
+                "enableRangeSelection": True,
+                "enableFilter": True,
+                "domLayout": 'autoHeight',
+                "stopEditingWhenCellsLoseFocus": True,
+                "enterMovesDown": False,
+                "enterMovesDownAfterEdit": False,
+            },
+            className="ag-theme-alpine",
+            style={
+                "height": "calc(100vh - 200px)",
+                "width": "100%",
+            }
+        )
+    ], className="table-container")
+
+    page_content = html.Div(
+        [cards, table_container],
+        className="page-content"
+    )
+
+    return html.Div([
+        header,
+        toast_approve,
+        toast_reject,
+        buttons,
+        page_content
     ])
+
 
 modal_import_excel = create_modal(
     modal_id="modal-import-excel",
@@ -991,7 +1017,6 @@ def open_confirm_approval_modal(n_clicks):
 
 # Callback para processar a confirmação de aprovação
 @callback(
-    Output('optimization-table', 'rowData'),
     Output("modal-confirm-approval", "is_open", allow_duplicate=True),
     Output("toast-approval-optimization", "is_open", allow_duplicate=True),
     Output("toast-approval-optimization", "header", allow_duplicate=True),
@@ -1006,8 +1031,8 @@ def handle_to_approval(confirm_clicks, cancel_clicks, table_data, user_data):
     triggered_id = ctx.triggered_id
     
     # Fechar o modal em ambos os casos
-    if triggered_id == "btn-cancel-approval":
-        return no_update, False, False, "", ""
+    if triggered_id == "btn-cancel-approval" and cancel_clicks:
+        return no_update, False, False, ""
     
     if triggered_id == "btn-confirm-approval" and confirm_clicks:
         try:
@@ -1023,17 +1048,18 @@ def handle_to_approval(confirm_clicks, cancel_clicks, table_data, user_data):
             }
 
             send_to_approval("optimization", variables_to_send)
-            return no_update, False, True, "Sucesso", "Dados enviados para aprovação com sucesso!"
+
+            return False, True, "Sucesso", "Dados enviados para aprovação com sucesso!"
         except Exception as e:
-            return no_update, False, True, "Erro", f"Erro ao enviar para aprovação: {str(e)}"
+            return False, True, "Erro", f"Erro ao enviar para aprovação: {str(e)}"
     
     return no_update, False, False, "", ""
 
 # Callback para aprovação/rejeição
 @callback(
-    Output("toast-approval-optimization", "is_open"),
-    Output("toast-approval-optimization", "header"),
-    Output("toast-approval-optimization", "children"),
+    Output("toast-approval-reject-optimization", "is_open"),
+    Output("toast-approval-reject-optimization", "header"),
+    Output("toast-approval-reject-optimization", "children"),
     Input("button-approval-accept-optimization", "n_clicks"),
     Input("button-approval-reject-optimization", "n_clicks"),
     State("optimization-table", "rowData"),
