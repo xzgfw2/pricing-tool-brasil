@@ -1,3 +1,5 @@
+#Versão do dia 10-07-2025
+
 import os
 import dash
 import dash_bootstrap_components as dbc
